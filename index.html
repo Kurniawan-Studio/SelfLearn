@@ -1,0 +1,2168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SELFLEARN — Learn Anything. Build Yourself.">
+<title>SELFLEARN — Learn Anything. Build Yourself.</title>
+<style>
+:root{
+--g-primary:#16834A;--g-deep:#0B4A2C;--g-dark:#12663C;--g-soft:#EAF5ED;--g-light:#F3F9F4;--g-pale:#F8FCF9;--g-muted:#79A98A;
+--g-border:#D7E8DA;--g-border-strong:#B8D9C1;--w:#fff;--t-primary:#0B4A2C;--t-secondary:#3D7A56;--t-muted:#79A98A;
+--bg:#fff;--bg-alt:#F8FCF9;--surface:#fff;--surface-hover:#F3F9F4;--border:#D7E8DA;--border-strong:#B8D9C1;--border-focus:#16834A;
+--sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-7:32px;--sp-8:40px;--sp-9:48px;--sp-10:64px;
+--r-xs:4px;--r-sm:6px;--r-md:10px;--r-lg:14px;--r-xl:20px;--r-2xl:28px;--r-full:9999px;
+--sh-2:0 2px 8px rgba(11,74,44,.06);--sh-3:0 8px 24px rgba(11,74,44,.08);
+--fs-xs:12px;--fs-sm:13px;--fs-base:15px;--fs-md:16px;--fs-lg:18px;--fs-xl:22px;--fs-2xl:28px;--fs-3xl:34px;--fs-4xl:44px;
+--font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",system-ui,sans-serif;--font-mono:"SF Mono",Menlo,Consolas,monospace;
+--tr-fast:120ms ease;--tr-base:200ms ease;--tr-slow:320ms ease;
+--sidebar-w:264px;--content-max:1120px;--reader-max:720px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--font-sans);font-size:var(--fs-base);line-height:1.55;color:var(--t-primary);background:var(--bg);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5,h6{margin:0;color:var(--t-primary);line-height:1.25;font-weight:600;letter-spacing:-.01em}
+h1{font-size:var(--fs-3xl)}h2{font-size:var(--fs-2xl)}h3{font-size:var(--fs-xl)}h4{font-size:var(--fs-lg)}
+p{margin:0 0 var(--sp-4);color:var(--t-secondary)}
+a{color:var(--g-primary);text-decoration:none;transition:color var(--tr-fast)}
+a:hover{color:var(--g-dark);text-decoration:underline}
+ul,ol{margin:0 0 var(--sp-4);padding-left:var(--sp-6);color:var(--t-secondary)}
+li{margin-bottom:var(--sp-1)}
+strong{color:var(--t-primary);font-weight:600}
+code{font-family:var(--font-mono);font-size:.92em;background:var(--g-soft);color:var(--g-deep);padding:1px 6px;border-radius:var(--r-xs)}
+pre{font-family:var(--font-mono);font-size:var(--fs-sm);background:var(--g-soft);color:var(--g-deep);padding:var(--sp-4);border-radius:var(--r-md);border:1px solid var(--border);overflow-x:auto;line-height:1.5;margin:0 0 var(--sp-4)}
+pre code{background:none;padding:0}
+hr{border:none;border-top:1px solid var(--border);margin:var(--sp-6) 0}
+button{font-family:inherit;cursor:pointer}
+input,textarea,select{font-family:inherit}
+:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px;border-radius:var(--r-xs)}
+::selection{background:var(--g-soft);color:var(--g-deep)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--g-border);border-radius:var(--r-full);border:2px solid var(--bg)}
+
+.shell{display:flex;min-height:100vh}
+.sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--bg-alt);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
+.brand{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-5) var(--sp-5) var(--sp-4);border-bottom:1px solid var(--border);text-decoration:none;color:var(--t-primary)}
+.brand:hover{text-decoration:none}
+.brand-mark{width:36px;height:36px;border-radius:var(--r-md);background:var(--g-primary);display:grid;place-items:center;color:var(--w);font-weight:700;font-size:var(--fs-lg);flex-shrink:0}
+.brand-txt{display:flex;flex-direction:column;line-height:1.1}
+.brand-nm{font-weight:700;font-size:var(--fs-md);color:var(--t-primary)}
+.brand-tg{font-size:var(--fs-xs);color:var(--t-muted)}
+.nav{padding:var(--sp-4) var(--sp-3);flex:1;display:flex;flex-direction:column;gap:var(--sp-4)}
+.nav-grp{display:flex;flex-direction:column;gap:2px}
+.nav-lbl{font-size:11px;font-weight:600;color:var(--t-muted);text-transform:uppercase;letter-spacing:.06em;padding:0 var(--sp-3) var(--sp-2)}
+.nav-it{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-2) var(--sp-3);border-radius:var(--r-md);color:var(--t-secondary);font-size:var(--fs-sm);font-weight:500;cursor:pointer;transition:background var(--tr-fast),color var(--tr-fast);text-decoration:none;border:1px solid transparent;text-align:left;background:transparent;width:100%}
+.nav-it:hover{background:var(--surface-hover);color:var(--t-primary);text-decoration:none}
+.nav-it.active{background:var(--g-soft);color:var(--g-deep);border-color:var(--g-border);font-weight:600}
+.nav-it svg{width:18px;height:18px;flex-shrink:0}
+.sb-foot{padding:var(--sp-3);border-top:1px solid var(--border);display:flex;align-items:center;gap:var(--sp-3)}
+.avatar{width:34px;height:34px;border-radius:var(--r-full);background:var(--g-soft);color:var(--g-deep);display:grid;place-items:center;font-weight:700;font-size:var(--fs-sm);border:1px solid var(--g-border);flex-shrink:0}
+.pr-meta{display:flex;flex-direction:column;min-width:0;flex:1}
+.pr-nm{font-size:var(--fs-sm);font-weight:600;color:var(--t-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pr-lv{font-size:var(--fs-xs);color:var(--t-muted)}
+
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-4) var(--sp-7);border-bottom:1px solid var(--border);background:rgba(255,255,255,.85);backdrop-filter:blur(8px);position:sticky;top:0;z-index:40}
+.tb-title{font-size:var(--fs-lg);font-weight:600;color:var(--t-primary)}
+.tb-sub{font-size:var(--fs-xs);color:var(--t-muted)}
+.tb-actions{margin-left:auto;display:flex;align-items:center;gap:var(--sp-2)}
+.menu-tg{display:none;background:transparent;border:1px solid var(--border);border-radius:var(--r-md);padding:var(--sp-2);color:var(--t-secondary);align-items:center;justify-content:center}
+.menu-tg:hover{background:var(--surface-hover)}
+.content{padding:var(--sp-7);max-width:var(--content-max);width:100%;margin:0 auto;flex:1}
+
+@media(max-width:900px){
+.sidebar{position:fixed;left:0;top:0;bottom:0;z-index:100;transform:translateX(-100%);transition:transform var(--tr-base);box-shadow:var(--sh-3)}
+.sidebar.open{transform:translateX(0)}
+.menu-tg{display:inline-flex}
+.content{padding:var(--sp-5)}
+.topbar{padding:var(--sp-3) var(--sp-4)}
+.sb-overlay{position:fixed;inset:0;background:rgba(11,74,44,.35);z-index:90;opacity:0;pointer-events:none;transition:opacity var(--tr-base)}
+.sb-overlay.show{opacity:1;pointer-events:auto}
+}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--sp-2);padding:var(--sp-2) var(--sp-4);border-radius:var(--r-md);font-size:var(--fs-sm);font-weight:600;border:1px solid transparent;transition:background var(--tr-fast),border-color var(--tr-fast),transform var(--tr-fast);text-decoration:none;white-space:nowrap}
+.btn:hover{text-decoration:none}.btn:active{transform:translateY(1px)}.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-pri{background:var(--g-primary);color:var(--w);border-color:var(--g-primary)}
+.btn-pri:hover{background:var(--g-dark);border-color:var(--g-dark);color:var(--w)}
+.btn-sec{background:var(--w);color:var(--g-deep);border-color:var(--border-strong)}
+.btn-sec:hover{background:var(--surface-hover);border-color:var(--g-primary);color:var(--g-deep)}
+.btn-ghost{background:transparent;color:var(--t-secondary);border-color:transparent}
+.btn-ghost:hover{background:var(--surface-hover);color:var(--t-primary)}
+.btn-sm{padding:6px 12px;font-size:var(--fs-xs)}
+.btn-lg{padding:var(--sp-3) var(--sp-6);font-size:var(--fs-base)}
+.btn svg{width:16px;height:16px}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-5);transition:border-color var(--tr-fast),box-shadow var(--tr-fast)}
+.card-hov:hover{border-color:var(--g-border-strong);box-shadow:var(--sh-2)}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-3);margin-bottom:var(--sp-4)}
+.card-ttl{font-size:var(--fs-md);font-weight:600;color:var(--t-primary);margin:0}
+.card-sub{font-size:var(--fs-sm);color:var(--t-muted);margin:var(--sp-1) 0 0}
+
+.prog{height:8px;background:var(--g-soft);border-radius:var(--r-full);overflow:hidden}
+.prog-bar{height:100%;background:var(--g-primary);border-radius:var(--r-full);transition:width var(--tr-slow)}
+.prog-sm{height:6px}
+
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:var(--r-full);font-size:11px;font-weight:600;background:var(--g-soft);color:var(--g-deep);border:1px solid var(--g-border);text-transform:uppercase;letter-spacing:.04em}
+.badge-mut{background:var(--bg-soft);color:var(--t-muted);border-color:var(--border)}
+.badge-ok{background:var(--g-primary);color:var(--w);border-color:var(--g-primary)}
+
+.field{display:flex;flex-direction:column;gap:var(--sp-2)}
+.field-lbl{font-size:var(--fs-sm);font-weight:500;color:var(--t-primary)}
+.field-hint{font-size:var(--fs-xs);color:var(--t-muted)}
+.input,.textarea,.select{width:100%;padding:10px 12px;border:1px solid var(--border-strong);border-radius:var(--r-md);font-size:var(--fs-base);color:var(--t-primary);background:var(--w);transition:border-color var(--tr-fast),box-shadow var(--tr-fast);font-family:inherit}
+.input::placeholder,.textarea::placeholder{color:var(--t-muted)}
+.input:focus,.textarea:focus,.select:focus{outline:none;border-color:var(--g-primary);box-shadow:0 0 0 3px rgba(22,131,74,.12)}
+.textarea{min-height:100px;resize:vertical;line-height:1.55}
+
+.section{margin-bottom:var(--sp-7)}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:var(--sp-3);margin-bottom:var(--sp-4)}
+.section-ttl{font-size:var(--fs-lg);font-weight:600;color:var(--t-primary)}
+.section-lnk{font-size:var(--fs-sm);color:var(--g-primary);font-weight:500;cursor:pointer;background:none;border:none;padding:0}
+.section-lnk:hover{text-decoration:underline}
+
+.empty{padding:var(--sp-9) var(--sp-6);text-align:center;color:var(--t-muted);border:1px dashed var(--border-strong);border-radius:var(--r-lg);background:var(--bg-alt)}
+.empty-ttl{font-size:var(--fs-md);font-weight:600;color:var(--t-primary);margin-bottom:var(--sp-2)}
+.empty-txt{font-size:var(--fs-sm);max-width:400px;margin:0 auto var(--sp-4)}
+
+#toast-root{position:fixed;bottom:var(--sp-6);right:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-2);z-index:300;pointer-events:none;max-width:calc(100vw - 32px)}
+.toast{background:var(--g-deep);color:var(--w);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-md);font-size:var(--fs-sm);box-shadow:var(--sh-3);pointer-events:auto;animation:tin 240ms ease;max-width:360px}
+.toast-ok{background:var(--g-primary)}
+.toast-err{background:var(--g-dark);border:1px solid var(--g-primary)}
+@keyframes tin{from{transform:translateY(8px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+.modal-bg{position:fixed;inset:0;background:rgba(11,74,44,.4);display:grid;place-items:center;z-index:200;padding:var(--sp-4);animation:fin 160ms ease}
+.modal{background:var(--w);border-radius:var(--r-lg);max-width:480px;width:100%;padding:var(--sp-6);box-shadow:var(--sh-3);animation:min 200ms ease;max-height:90vh;overflow-y:auto}
+.modal-ttl{font-size:var(--fs-lg);font-weight:600;margin-bottom:var(--sp-3);color:var(--t-primary)}
+.modal-bd{color:var(--t-secondary);margin-bottom:var(--sp-5)}
+.modal-act{display:flex;gap:var(--sp-2);justify-content:flex-end}
+@keyframes fin{from{opacity:0}to{opacity:1}}
+@keyframes min{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+
+.muted{color:var(--t-muted)}.sm{font-size:var(--fs-sm)}.xs{font-size:var(--fs-xs)}
+.flex{display:flex}.flex-col{flex-direction:column}.items-c{align-items:center}.items-s{align-items:flex-start}
+.jc-b{justify-content:space-between}.flex-wrap{flex-wrap:wrap}
+.gap-2{gap:var(--sp-2)}.gap-3{gap:var(--sp-3)}.gap-4{gap:var(--sp-4)}
+.mb-2{margin-bottom:var(--sp-2)}.mb-4{margin-bottom:var(--sp-4)}.mb-6{margin-bottom:var(--sp-6)}
+.mt-4{margin-top:var(--sp-4)}.w-full{width:100%}
+.grid{display:grid}.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}
+
+.dash-hero{background:linear-gradient(135deg,var(--g-pale) 0%,var(--w) 100%);border:1px solid var(--border);border-radius:var(--r-xl);padding:var(--sp-7);margin-bottom:var(--sp-6);position:relative;overflow:hidden}
+.dash-hero::after{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,var(--g-soft) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.dash-hero h1{margin-bottom:var(--sp-2)}
+.dash-hero p{max-width:520px;margin-bottom:var(--sp-5);font-size:var(--fs-md)}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-3);margin-bottom:var(--sp-6)}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-4)}
+.stat-lbl{font-size:var(--fs-xs);color:var(--t-muted);font-weight:500;margin-bottom:var(--sp-2);text-transform:uppercase;letter-spacing:.04em}
+.stat-val{font-size:var(--fs-2xl);font-weight:700;color:var(--t-primary);line-height:1}
+.stat-meta{font-size:var(--fs-xs);color:var(--t-muted);margin-top:var(--sp-1)}
+
+.dash-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:var(--sp-4);margin-bottom:var(--sp-6)}
+
+.ring-wrap{position:relative;width:88px;height:88px;flex-shrink:0}
+.ring-svg{width:88px;height:88px}
+.ring-bg{stroke:var(--g-soft)}
+.ring-fg{stroke:var(--g-primary);transition:stroke-dashoffset var(--tr-slow);transform:rotate(-90deg);transform-origin:center}
+.ring-txt{position:absolute;inset:0;display:grid;place-items:center;font-weight:700;font-size:var(--fs-lg);color:var(--t-primary)}
+.goal-row{display:flex;align-items:center;gap:var(--sp-5)}
+
+.cont-card{display:flex;gap:var(--sp-4);align-items:center;padding:var(--sp-4);background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--r-lg);cursor:pointer;transition:border-color var(--tr-fast),background var(--tr-fast);text-decoration:none;color:inherit}
+.cont-card:hover{border-color:var(--g-border-strong);background:var(--g-light);text-decoration:none}
+.cont-th{width:56px;height:56px;border-radius:var(--r-md);background:var(--g-soft);display:grid;place-items:center;color:var(--g-deep);flex-shrink:0;font-weight:700}
+.cont-meta{flex:1;min-width:0}
+.cont-ttl{font-size:var(--fs-sm);font-weight:600;color:var(--t-primary);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cont-cat{font-size:var(--fs-xs);color:var(--t-muted)}
+
+.week-ch{display:flex;align-items:flex-end;gap:var(--sp-2);height:120px;padding:var(--sp-2) 0}
+.week-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:var(--sp-2);height:100%;justify-content:flex-end}
+.week-bar{width:100%;background:var(--g-soft);border-radius:var(--r-sm);position:relative;min-height:4px;flex-shrink:0;transition:height var(--tr-slow)}
+.week-day{font-size:var(--fs-xs);color:var(--t-muted);font-weight:500}
+
+.rec-item{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) 0;border-bottom:1px solid var(--border);cursor:pointer;text-decoration:none;color:inherit}
+.rec-item:last-child{border-bottom:none}
+.rec-item:hover .rec-ttl{color:var(--g-primary)}
+.rec-dot{width:8px;height:8px;border-radius:50%;background:var(--g-primary);flex-shrink:0}
+.rec-bd{flex:1;min-width:0}
+.rec-ttl{font-size:var(--fs-sm);font-weight:500;color:var(--t-primary);transition:color var(--tr-fast)}
+.rec-mt{font-size:var(--fs-xs);color:var(--t-muted)}
+
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--sp-3)}
+.cat-card{padding:var(--sp-5);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);cursor:pointer;transition:border-color var(--tr-fast),background var(--tr-fast);text-decoration:none;color:inherit;display:block}
+.cat-card:hover{border-color:var(--g-border-strong);background:var(--bg-alt);text-decoration:none}
+.cat-ic{width:40px;height:40px;border-radius:var(--r-md);background:var(--g-soft);display:grid;place-items:center;color:var(--g-deep);margin-bottom:var(--sp-3)}
+.cat-ic svg{width:20px;height:20px}
+.cat-nm{font-size:var(--fs-md);font-weight:600;color:var(--t-primary);margin-bottom:var(--sp-1)}
+.cat-cnt{font-size:var(--fs-xs);color:var(--t-muted)}
+
+.les-row{display:flex;align-items:center;gap:var(--sp-4);padding:var(--sp-4);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:var(--sp-2);cursor:pointer;transition:border-color var(--tr-fast),background var(--tr-fast);text-decoration:none;color:inherit}
+.les-row:hover{border-color:var(--g-border-strong);background:var(--bg-alt);text-decoration:none}
+.les-num{width:36px;height:36px;flex-shrink:0;border-radius:var(--r-md);background:var(--g-soft);color:var(--g-deep);display:grid;place-items:center;font-weight:700;font-size:var(--fs-sm)}
+.les-row.done .les-num{background:var(--g-primary);color:var(--w)}
+.les-bd{flex:1;min-width:0}
+.les-ttl{font-size:var(--fs-base);font-weight:600;color:var(--t-primary);margin-bottom:2px}
+.les-sub{font-size:var(--fs-xs);color:var(--t-muted);display:flex;gap:var(--sp-3);flex-wrap:wrap}
+
+.reader-wrap{display:grid;grid-template-columns:240px 1fr;gap:var(--sp-7);max-width:var(--content-max);margin:0 auto;padding:var(--sp-6) var(--sp-7);align-items:start}
+.reader-toc{position:sticky;top:calc(var(--sp-8) + 40px);padding:var(--sp-4);background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--r-lg);max-height:calc(100vh - 120px);overflow-y:auto}
+.toc-lbl{font-size:11px;font-weight:600;color:var(--t-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:var(--sp-3)}
+.toc-it{display:block;font-size:var(--fs-sm);color:var(--t-secondary);padding:6px 10px;border-radius:var(--r-sm);cursor:pointer;text-decoration:none;margin-bottom:2px;border-left:2px solid transparent;transition:color var(--tr-fast),background var(--tr-fast);line-height:1.4}
+.toc-it:hover{color:var(--g-primary);background:var(--w);text-decoration:none}
+.toc-it.active{color:var(--g-deep);font-weight:600;border-left-color:var(--g-primary);background:var(--w)}
+
+.reader-main{max-width:var(--reader-max)}
+.reader-head{margin-bottom:var(--sp-7);padding-bottom:var(--sp-5);border-bottom:1px solid var(--border)}
+.reader-kick{display:flex;align-items:center;gap:var(--sp-3);flex-wrap:wrap;margin-bottom:var(--sp-3);font-size:var(--fs-xs);color:var(--t-muted)}
+.reader-ttl{font-size:var(--fs-3xl);font-weight:700;letter-spacing:-.02em;color:var(--t-primary);margin-bottom:var(--sp-3);line-height:1.15}
+.reader-desc{font-size:var(--fs-md);color:var(--t-secondary);margin-bottom:var(--sp-4)}
+
+.objectives{background:var(--g-pale);border:1px solid var(--border);border-left:3px solid var(--g-primary);border-radius:var(--r-md);padding:var(--sp-4) var(--sp-5);margin-bottom:var(--sp-7)}
+.obj-ttl{font-size:var(--fs-sm);font-weight:600;color:var(--g-deep);margin-bottom:var(--sp-2);text-transform:uppercase;letter-spacing:.04em}
+.objectives ul{margin:0;padding-left:var(--sp-5)}
+.objectives li{font-size:var(--fs-sm);color:var(--t-secondary);margin-bottom:var(--sp-1)}
+
+.lesson-sec{margin-bottom:var(--sp-7)}
+.lesson-sec h2{font-size:var(--fs-2xl);font-weight:700;letter-spacing:-.015em;margin-bottom:var(--sp-4);color:var(--t-primary);scroll-margin-top:100px}
+.lesson-sec h3{font-size:var(--fs-lg);font-weight:600;margin:var(--sp-5) 0 var(--sp-3);color:var(--t-primary)}
+.lesson-sec p{font-size:var(--fs-md);line-height:1.7;color:var(--t-secondary);margin-bottom:var(--sp-4)}
+.lesson-sec ul,.lesson-sec ol{font-size:var(--fs-md);line-height:1.7;margin-bottom:var(--sp-4)}
+.lesson-sec li{margin-bottom:var(--sp-2)}
+
+.reader-foot{margin-top:var(--sp-8);padding-top:var(--sp-6);border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:var(--sp-3);flex-wrap:wrap}
+.reader-nav{flex:1;min-width:200px;padding:var(--sp-4);border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);cursor:pointer;text-align:left;text-decoration:none;color:inherit;transition:border-color var(--tr-fast),background var(--tr-fast)}
+.reader-nav:hover{border-color:var(--g-border-strong);background:var(--bg-alt);text-decoration:none}
+.reader-nav.right{text-align:right}
+.rn-lbl{font-size:var(--fs-xs);color:var(--t-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:var(--sp-1)}
+.rn-ttl{font-size:var(--fs-sm);font-weight:600;color:var(--t-primary)}
+
+.read-prog{position:fixed;top:0;left:0;right:0;height:3px;background:transparent;z-index:60}
+.read-prog-fill{height:100%;background:var(--g-primary);width:0;transition:width 100ms linear}
+
+.quiz-wrap{margin-top:var(--sp-8);padding:var(--sp-6);background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--r-lg)}
+.quiz-head{margin-bottom:var(--sp-5)}
+.quiz-ttl{font-size:var(--fs-xl);font-weight:600;color:var(--t-primary);margin-bottom:var(--sp-1)}
+.quiz-sub{font-size:var(--fs-sm);color:var(--t-muted)}
+.quiz-q{margin-bottom:var(--sp-6);padding-bottom:var(--sp-5);border-bottom:1px solid var(--border)}
+.quiz-q:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+.quiz-qt{font-size:var(--fs-md);font-weight:600;color:var(--t-primary);margin-bottom:var(--sp-3);line-height:1.4}
+.quiz-opt{display:flex;align-items:flex-start;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);border:1px solid var(--border);border-radius:var(--r-md);background:var(--w);cursor:pointer;margin-bottom:var(--sp-2);transition:border-color var(--tr-fast),background var(--tr-fast);user-select:none}
+.quiz-opt:hover{border-color:var(--g-border-strong);background:var(--bg-alt)}
+.quiz-opt input{margin-top:3px;accent-color:var(--g-primary);flex-shrink:0}
+.quiz-opt-txt{font-size:var(--fs-sm);color:var(--t-primary);line-height:1.4;flex:1}
+.quiz-opt.correct{border-color:var(--g-primary);background:var(--g-soft)}
+.quiz-opt.wrong{border-color:var(--g-primary);background:var(--g-light);border-style:dashed}
+.quiz-opt.locked{pointer-events:none;opacity:.85}
+.quiz-exp{margin-top:var(--sp-3);padding:var(--sp-3) var(--sp-4);background:var(--w);border:1px solid var(--border);border-left:3px solid var(--g-primary);border-radius:var(--r-md);font-size:var(--fs-sm);color:var(--t-secondary);line-height:1.5}
+.quiz-act{margin-top:var(--sp-5);display:flex;gap:var(--sp-3);align-items:center;flex-wrap:wrap}
+.quiz-result{text-align:center;padding:var(--sp-8) var(--sp-5)}
+.quiz-score{font-size:var(--fs-4xl);font-weight:700;color:var(--g-primary);line-height:1;margin-bottom:var(--sp-2);letter-spacing:-.03em}
+.quiz-score-lbl{font-size:var(--fs-sm);color:var(--t-muted);margin-bottom:var(--sp-5)}
+
+.deck-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--sp-3)}
+.deck-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-4);cursor:pointer;transition:border-color var(--tr-fast),background var(--tr-fast)}
+.deck-card:hover{border-color:var(--g-border-strong);background:var(--bg-alt)}
+.deck-nm{font-size:var(--fs-md);font-weight:600;color:var(--t-primary);margin-bottom:var(--sp-1)}
+.deck-cnt{font-size:var(--fs-xs);color:var(--t-muted)}
+
+.fc-stage{perspective:1200px;margin:var(--sp-6) auto;max-width:560px;height:320px;cursor:pointer}
+.fc-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.fc-stage.flipped .fc-inner{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);display:flex;align-items:center;justify-content:center;padding:var(--sp-8);text-align:center;font-size:var(--fs-lg);color:var(--t-primary);line-height:1.5;box-shadow:var(--sh-2)}
+.fc-back{transform:rotateY(180deg);background:var(--g-pale);color:var(--t-primary);font-size:var(--fs-md)}
+.fc-lbl{position:absolute;top:var(--sp-4);left:var(--sp-5);font-size:11px;font-weight:600;color:var(--t-muted);text-transform:uppercase;letter-spacing:.06em}
+.fc-acts{display:flex;justify-content:center;gap:var(--sp-3);margin-top:var(--sp-5);flex-wrap:wrap}
+
+.notes-layout{display:grid;grid-template-columns:280px 1fr;gap:var(--sp-4);min-height:600px}
+.notes-list{background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-3);max-height:calc(100vh - 200px);overflow-y:auto}
+.note-it{padding:var(--sp-3);border-radius:var(--r-md);cursor:pointer;transition:background var(--tr-fast);margin-bottom:2px}
+.note-it:hover{background:var(--w)}
+.note-it.active{background:var(--w);border:1px solid var(--g-border)}
+.note-it-t{font-size:var(--fs-sm);font-weight:600;color:var(--t-primary);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.note-it-d{font-size:var(--fs-xs);color:var(--t-muted)}
+.note-editor{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-5);display:flex;flex-direction:column}
+.note-preview{font-size:var(--fs-base);line-height:1.7;color:var(--t-secondary)}
+.note-preview h1,.note-preview h2,.note-preview h3{color:var(--t-primary);margin:var(--sp-4) 0 var(--sp-3)}
+
+.task-row{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:var(--sp-2);transition:border-color var(--tr-fast)}
+.task-row:hover{border-color:var(--g-border-strong)}
+.task-row.done{opacity:.6}
+.task-row.done .task-ttl{text-decoration:line-through}
+.task-cb{width:20px;height:20px;border-radius:var(--r-sm);border:2px solid var(--border-strong);background:var(--w);display:grid;place-items:center;flex-shrink:0;cursor:pointer;transition:background var(--tr-fast),border-color var(--tr-fast)}
+.task-cb:hover{border-color:var(--g-primary)}
+.task-row.done .task-cb{background:var(--g-primary);border-color:var(--g-primary);color:var(--w)}
+.task-cb svg{width:12px;height:12px;opacity:0;transition:opacity var(--tr-fast)}
+.task-row.done .task-cb svg{opacity:1}
+.task-bd{flex:1;min-width:0}
+.task-ttl{font-size:var(--fs-sm);font-weight:500;color:var(--t-primary)}
+.task-meta{font-size:var(--fs-xs);color:var(--t-muted);display:flex;gap:var(--sp-2);margin-top:2px}
+
+.focus-stage{max-width:520px;margin:var(--sp-7) auto;text-align:center;padding:var(--sp-8) var(--sp-6);background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--r-2xl)}
+.focus-time{font-size:72px;font-weight:700;color:var(--t-primary);letter-spacing:-.03em;line-height:1;margin:var(--sp-6) 0;font-variant-numeric:tabular-nums}
+.focus-lbl{font-size:var(--fs-xs);font-weight:600;color:var(--t-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:var(--sp-3)}
+.focus-modes{display:flex;gap:var(--sp-2);justify-content:center;margin-bottom:var(--sp-5);flex-wrap:wrap}
+.focus-mode{padding:6px 14px;border-radius:var(--r-full);border:1px solid var(--border-strong);background:var(--w);font-size:var(--fs-xs);font-weight:600;color:var(--t-secondary);cursor:pointer;transition:background var(--tr-fast),color var(--tr-fast)}
+.focus-mode.active{background:var(--g-primary);color:var(--w);border-color:var(--g-primary)}
+.focus-mode:hover:not(.active){background:var(--surface-hover)}
+
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-5);margin-bottom:var(--sp-4)}
+.chart-ttl{font-size:var(--fs-sm);font-weight:600;color:var(--t-primary);margin-bottom:var(--sp-4);text-transform:uppercase;letter-spacing:.04em}
+.chart-wrap{height:200px;position:relative}
+.chart-wrap svg{width:100%;height:100%;overflow:visible}
+.chart-axis{font-size:10px;fill:var(--t-muted)}
+.chart-bar{fill:var(--g-primary)}
+
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--sp-3)}
+.ach-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-4);text-align:center;transition:border-color var(--tr-fast),background var(--tr-fast);opacity:.55}
+.ach-card.unlocked{opacity:1;border-color:var(--g-border-strong);background:var(--g-pale)}
+.ach-ic{width:48px;height:48px;border-radius:var(--r-full);background:var(--g-soft);color:var(--g-deep);display:grid;place-items:center;margin:0 auto var(--sp-3)}
+.ach-ic svg{width:24px;height:24px}
+.ach-card.unlocked .ach-ic{background:var(--g-primary);color:var(--w)}
+.ach-ttl{font-size:var(--fs-sm);font-weight:600;color:var(--t-primary);margin-bottom:var(--sp-1)}
+.ach-desc{font-size:var(--fs-xs);color:var(--t-muted);line-height:1.4}
+
+.skill-grp{margin-bottom:var(--sp-6)}
+.skill-grp-ttl{font-size:var(--fs-md);font-weight:600;color:var(--t-primary);margin-bottom:var(--sp-3);display:flex;align-items:center;gap:var(--sp-2)}
+.skill-it{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:var(--sp-2)}
+.skill-lvl{font-size:var(--fs-xs);font-weight:600;color:var(--t-muted);min-width:60px}
+.skill-nm{font-size:var(--fs-sm);font-weight:500;color:var(--t-primary);flex:1}
+.skill-prog{width:120px}
+
+.search-box{position:relative;margin-bottom:var(--sp-5)}
+.search-box .input{padding-left:44px;font-size:var(--fs-md);padding-top:14px;padding-bottom:14px}
+.search-box svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--t-muted);pointer-events:none}
+.search-res{padding:var(--sp-3) var(--sp-4);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:var(--sp-2);cursor:pointer;transition:border-color var(--tr-fast),background var(--tr-fast);background:var(--surface)}
+.search-res:hover{border-color:var(--g-border-strong);background:var(--bg-alt)}
+.search-res-t{font-size:var(--fs-sm);font-weight:600;color:var(--t-primary);margin-bottom:2px}
+.search-res-m{font-size:var(--fs-xs);color:var(--t-muted)}
+.search-res-type{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--g-deep);background:var(--g-soft);padding:1px 6px;border-radius:var(--r-xs);margin-right:6px}
+
+.set-row{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-4) 0;border-bottom:1px solid var(--border);gap:var(--sp-4)}
+.set-row:last-child{border-bottom:none}
+.set-lbl{font-size:var(--fs-sm);font-weight:500;color:var(--t-primary)}
+.set-sub{font-size:var(--fs-xs);color:var(--t-muted);margin-top:2px}
+
+@media(max-width:900px){
+.stats{grid-template-columns:repeat(2,1fr)}
+.dash-grid{grid-template-columns:1fr}
+.reader-wrap{grid-template-columns:1fr;padding:var(--sp-5);gap:var(--sp-5)}
+.reader-toc{position:static;max-height:none;display:none}
+.reader-ttl{font-size:var(--fs-2xl)}
+.reader-foot{flex-direction:column}
+.notes-layout{grid-template-columns:1fr}
+.notes-list{max-height:220px}
+.grid-2{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+.dash-hero{padding:var(--sp-5)}
+.stats{grid-template-columns:1fr 1fr}
+.cat-grid{grid-template-columns:1fr}
+.les-row{gap:var(--sp-3);padding:var(--sp-3)}
+.cont-card{flex-direction:column;text-align:center}
+.focus-time{font-size:56px}
+.grid-3{grid-template-columns:1fr}
+.grid-4{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="svg-templates" style="display:none">
+<svg id="svg-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+<svg id="svg-library"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+<svg id="svg-path"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M6 9v6a3 3 0 0 0 3 3h6"/></svg>
+<svg id="svg-quiz"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+<svg id="svg-cards"><rect x="2" y="6" width="16" height="12" rx="2"/><path d="M6 2h14a2 2 0 0 1 2 2v12"/></svg>
+<svg id="svg-notes"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+<svg id="svg-planner"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+<svg id="svg-focus"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+<svg id="svg-analytics"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+<svg id="svg-trophy"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
+<svg id="svg-skills"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+<svg id="svg-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+<svg id="svg-settings"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+<svg id="svg-menu"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+<svg id="svg-check"><polyline points="20 6 9 17 4 12"/></svg>
+<svg id="svg-arrowR"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+<svg id="svg-arrowL"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+<svg id="svg-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+<svg id="svg-flame"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+<svg id="svg-book"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+<svg id="svg-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+<svg id="svg-trash"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+<svg id="svg-plus"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+<svg id="svg-play"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>
+<svg id="svg-pause"><rect x="6" y="4" width="4" height="16" fill="currentColor"/><rect x="14" y="4" width="4" height="16" fill="currentColor"/></svg>
+<svg id="svg-reset"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+</div>
+
+<div id="app"></div>
+<div id="toast-root" aria-live="assertive"></div>
+<div id="modal-root"></div>
+
+<script>
+// @ts-nocheck
+(function(){
+'use strict';
+
+function _svg(id, s) {
+  s = s || 18;
+  var svgEl = document.getElementById('svg-' + id);
+  if (!svgEl) return '';
+  return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + svgEl.innerHTML + '</svg>';
+}
+var I = {
+  home: _svg('home'), library: _svg('library'), path: _svg('path'), quiz: _svg('quiz'),
+  cards: _svg('cards'), notes: _svg('notes'), planner: _svg('planner'), focus: _svg('focus'),
+  analytics: _svg('analytics'), trophy: _svg('trophy'), skills: _svg('skills'), search: _svg('search'),
+  settings: _svg('settings'), menu: _svg('menu'), check: _svg('check'), arrowR: _svg('arrowR'),
+  arrowL: _svg('arrowL'), clock: _svg('clock'), flame: _svg('flame'), book: _svg('book'),
+  star: _svg('star'), trash: _svg('trash'), plus: _svg('plus'), play: _svg('play'),
+  pause: _svg('pause'), reset: _svg('reset')
+};
+
+var $ = function(s,r){ return (r||document).querySelector(s); };
+var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+var uid = function(p){ p=p||'id'; return p+'_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8); };
+var today = function(){ return new Date().toISOString().slice(0,10); };
+var clamp = function(n,a,b){ return Math.min(Math.max(n,a),b); };
+
+function el(tag, attrs) {
+  var n = document.createElement(tag);
+  if (attrs) {
+    for (var k in attrs) {
+      if (attrs[k] == null || attrs[k] === false) continue;
+      if (k === 'class') n.className = attrs[k];
+      else if (k === 'style' && typeof attrs[k] === 'object') Object.assign(n.style, attrs[k]);
+      else if (k === 'dataset') Object.assign(n.dataset, attrs[k]);
+      else if (k.indexOf('on') === 0 && typeof attrs[k] === 'function') n.addEventListener(k.slice(2).toLowerCase(), attrs[k]);
+      else if (k === 'html') n.innerHTML = attrs[k];
+      else n.setAttribute(k, attrs[k]);
+    }
+  }
+  var kids = Array.prototype.slice.call(arguments, 2);
+  
+  function appendKid(kid) {
+    if (kid == null || kid === false) return;
+    if (Array.isArray(kid)) {
+      for (var i = 0; i < kid.length; i++) {
+        appendKid(kid[i]);
+      }
+    } else {
+      n.append(kid.nodeType ? kid : document.createTextNode(String(kid)));
+    }
+  }
+  
+  for (var j = 0; j < kids.length; j++) {
+    appendKid(kids[j]);
+  }
+  
+  return n;
+}
+
+function esc(s){
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/\x3c/g,'&lt;')
+    .replace(/\x3e/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+
+function renderMd(md){
+  if(!md)return'';
+  var h=esc(md);
+  var codeBlockRe = new RegExp("\\x60\\x60\\x60([\\s\\S]*?)\\x60\\x60\\x60", "g");
+  var inlineCodeRe = new RegExp("\\x60([^\\x60\\n]+)\\x60", "g");
+  
+  h = h.replace(codeBlockRe, function(_, c) { return '<pre><code>' + c.trim() + '</code></pre>'; });
+  h = h.replace(inlineCodeRe, function(_, c) { return '<code>' + c + '</code>'; });
+  h = h.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+  h = h.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+  h = h.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+  h = h.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  h = h.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  
+  h = h.replace(/^\s*[-*]\s+(.+)$/gm, '<li>$1</li>');
+  h = h.replace(/(<li>[\s\S]*?<\/li>)/g, function(m) { return m.indexOf('<ul>') > -1 ? m : '<ul>' + m + '</ul>'; });
+  
+  h = h.split(/\n{2,}/).map(function(b) {
+    var t = b.trim();
+    if(!t) return '';
+    if(/^\x3c(h\d|ul|ol|pre|blockquote|p)/.test(t)) return t; 
+    return '<p>' + t.replace(/\n/g, '<br>') + '</p>';
+  }).join('');
+  
+  return h;
+}
+
+function fmtDate(d){
+  if(!d)return'—';
+  var dt=typeof d==='string'?new Date(d):d;
+  return dt.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
+}
+
+function toast(msg,type){
+  var t=el('div',{class:'toast'+(type?' toast-'+type:'')},msg);
+  $('#toast-root').appendChild(t);
+  setTimeout(function(){t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(function(){t.remove();},300);},2600);
+}
+
+function confirmModal(opt){
+  var root=$('#modal-root');
+  var close=function(){root.innerHTML='';};
+  var bg=el('div',{class:'modal-bg',onClick:function(e){if(e.target===bg)close();}});
+  var bd=el('div',{class:'modal-bd'});
+  if(typeof opt.body==='string')bd.innerHTML=opt.body;else bd.append(opt.body);
+  
+  var modal=el('div',{class:'modal'},
+    el('div',{class:'modal-ttl'},opt.title),
+    bd,
+    el('div',{class:'modal-act'},
+      el('button',{class:'btn btn-sec',onClick:close},opt.cancelLabel||'Batal'),
+      el('button',{class:'btn btn-pri',onClick:function(){close();if(opt.onConfirm)opt.onConfirm();}},opt.confirmLabel||'Konfirmasi')
+    )
+  );
+  bg.append(modal);root.innerHTML='';root.append(bg);
+}
+
+var debounce=function(fn,ms){
+  var t;
+  return function(){
+    var a = arguments;
+    clearTimeout(t);
+    t=setTimeout(function(){fn.apply(null, a);},ms||200);
+  };
+};
+
+var CATEGORIES=[
+{id:'learning',name:'Learning How to Learn',desc:'Ilmu tentang cara belajar efektif.'},
+{id:'programming',name:'Programming',desc:'Dasar-dasar pemrograman dan computational thinking.'},
+{id:'web',name:'Web Development',desc:'HTML, CSS, dan fondasi web modern.'},
+{id:'critical',name:'Critical Thinking',desc:'Berpikir jernih dan menghindari bias.'},
+{id:'finance',name:'Financial Literacy',desc:'Mengelola uang dengan cerdas.'},
+{id:'productivity',name:'Productivity',desc:'Sistem dan kebiasaan produktif.'},
+{id:'ai',name:'Artificial Intelligence',desc:'Pengantar AI modern.'},
+{id:'math',name:'Mathematics',desc:'Fondasi matematika untuk pemula.'}
+];
+
+var LESSONS=[
+{id:'learn-1',category:'learning',title:'Belajar Cara Belajar',desc:'Bagaimana otak membentuk memori, dan strategi belajar yang benar-benar bekerja.',difficulty:'beginner',duration:18,
+objectives:['Memahami perbedaan memori kerja dan memori jangka panjang','Mengenal konsep retrieval practice dan spaced repetition','Mengenali ilusi kompetensi saat belajar','Menerapkan strategi belajar yang lebih efektif'],
+sections:[
+{heading:'Mengapa Belajar Cara Belajar Itu Penting',body:'Kebanyakan orang menghabiskan bertahun-tahun di bangku sekolah tanpa pernah mempelajari *bagaimana* belajar secara efektif. Mereka membaca berulang-ulang, menyorot teks dengan stabilo, dan merasa sudah paham—tetapi lupa seminggu kemudian.\n\nPenelitian dalam ilmu kognitif selama beberapa dekade terakhir menunjukkan bahwa banyak metode belajar yang populer justru tidak efisien, sementara teknik-teknik tertentu yang lebih jarang dipakai jauh lebih efektif.\n\nMemahami cara kerja memori memberi Anda keunggulan besar: Anda bisa belajar lebih cepat, mengingat lebih lama, dan menghindari jebakan "belajar semu" yang menghabiskan waktu tanpa hasil nyata.'},
+{heading:'Dua Jenis Memori yang Perlu Anda Kenali',body:'Psikolog kognitif membedakan **working memory** (memori kerja) dan **long-term memory** (memori jangka panjang).\n\nMemori kerja adalah ruang sadar Anda saat ini—tempat Anda memproses informasi secara aktif. Kapasitasnya sangat terbatas: menurut model klasik Miller (1956), sekitar 7±2 item, meskipun riset modern menunjukkan batas efektifnya bahkan lebih kecil, sekitar 4 chunk. Ini alasan mengapa menghafal 20 istilah sekaligus terasa mustahil.\n\nMemori jangka panjang adalah gudang penyimpanan besar yang menyimpan pengetahuan Anda seumur hidup. Tujuan belajar adalah memindahkan informasi dari memori kerja ke memori jangka panjang, dan kemudian memastikan informasi tersebut dapat diambil kembali saat dibutuhkan.'},
+{heading:'Retrieval Practice: Menguji Diri, Bukan Mengulang',body:'Salah satu temuan paling kuat dalam ilmu belajar adalah **testing effect**: menguji diri Anda sendiri tentang suatu materi menghasilkan ingatan yang jauh lebih kuat dibandingkan membaca ulang materi tersebut. Fenomena ini dipelajari secara mendalam oleh Henry Roediger dan Jeffrey Karpicke pada awal 2000-an.\n\nMengapa ini terjadi? Saat Anda mengambil informasi dari memori, Anda memperkuat jalur saraf yang menyimpan informasi itu. Setiap kali berhasil mengingat sesuatu tanpa bantuan, Anda membuat ingatan itu lebih mudah diakses di masa depan.\n\n**Cara menerapkan:** Setelah membaca satu bagian, tutup materinya dan tuliskan apa yang Anda ingat di kertas kosong. Ini disebut *free recall*. Jika memungkinkan, gunakan flashcards atau quiz mandiri.'},
+{heading:'Spaced Repetition: Melawan Kurva Lupa',body:'Hermann Ebbinghaus pada tahun 1885 menemukan bahwa ingatan manusia menurun secara eksponensial seiring waktu—fenomena yang dikenal sebagai **forgetting curve** (kurva lupa). Tanpa pengulangan, informasi baru bisa hilang hingga 70% dalam waktu 24 jam.\n\nNamun ada kabar baik: setiap kali Anda mengulang informasi *pada waktu yang tepat*, kurva lupa menjadi lebih landai. Ini disebut **spaced repetition** (pengulangan terjadwal). Alih-alih belajar 10 kali dalam satu hari, belajar 10 kali yang tersebar dalam 10 hari menghasilkan ingatan yang jauh lebih kuat.\n\nSistem seperti Anki, SuperMemo, dan algoritma SM-2 menggunakan prinsip ini untuk menentukan kapan Anda harus mengulang suatu kartu.'},
+{heading:'Ilusi Kompetensi: Jebakan "Sudah Paham"',body:'Salah satu jebakan paling berbahaya dalam belajar adalah **illusion of competence**—perasaan sudah paham padahal belum. Perasaan ini muncul ketika Anda membaca ulang materi dan merasa familiar dengan teksnya. Familiaritas terasa seperti pemahaman, tetapi berbeda.\n\nAnda bisa menguji diri Anda: setelah membaca satu bagian, apakah Anda bisa menjelaskannya dengan kata-kata sendiri tanpa melihat buku? Jika tidak, Anda belum benar-benar paham.\n\nPsikolog Robert Bjork menyebut ini **"desirable difficulties"** (kesulitan yang diinginkan): kondisi belajar yang terasa lebih sulit justru menghasilkan pembelajaran yang lebih tahan lama. Jangan menghindari rasa sulit; kejar rasa sulit yang tepat.'},
+{heading:'Rangkuman',body:'Belajar efektif bukan tentang berapa banyak jam yang Anda habiskan, tetapi tentang *kualitas* interaksi Anda dengan materi. Kunci utamanya:\n\n- Gunakan **retrieval practice**: uji diri, bukan hanya membaca ulang.\n- Terapkan **spaced repetition**: ulangi informasi secara terjadwal.\n- Waspadai **ilusi kompetensi**: jika tidak bisa menjelaskan tanpa buku, belum paham.\n- Sediakan waktu istirahat dan tidur—konsolidasi memori terjadi saat tidur.\n- Variasikan latihan (interleaving).\n\nBelajar adalah keterampilan yang bisa dilatih.'}
+],
+quiz:[
+{type:'multiple-choice',question:'Teknik belajar mana yang secara konsisten terbukti paling efektif menurut penelitian ilmu kognitif?',options:['Membaca ulang materi beberapa kali','Menyorot teks dengan warna berbeda','Menguji diri sendiri setelah membaca','Mendengarkan rekaman sambil tidur'],correct:2,explanation:'Testing effect (Roediger & Karpicke, 2006) menunjukkan retrieval practice—menguji diri—menghasilkan retensi jauh lebih baik dibanding membaca ulang. Reading ulang menghasilkan illusion of competence.'},
+{type:'true-false',question:'Spaced repetition bekerja lebih efektif jika dilakukan dalam satu sesi panjang (massed practice).',correct:false,explanation:'Justru sebaliknya. Massed practice menghasilkan ingatan jangka pendek yang cepat hilang. Spaced repetition menyebar sesi dalam interval untuk memanfaatkan kurva lupa.'},
+{type:'multiple-choice',question:'Apa yang dimaksud dengan "illusion of competence"?',options:['Kemampuan menipu orang lain','Perasaan sudah paham padahal belum, karena familiaritas','Kemampuan mengingat sangat cepat','Kepercayaan berlebihan pada metode'],correct:1,explanation:'Illusion of competence muncul saat Anda merasa paham karena familiar dengan teks, padahal belum bisa menjelaskan tanpa bantuan. Familiaritas ≠ pemahaman.'},
+{type:'multiple-choice',question:'Mengapa memori kerja (working memory) menjadi "bottleneck" dalam belajar?',options:['Karena menyimpan selamanya','Karena kapasitasnya terbatas sekitar 4–7 item','Karena hanya bisa memproses gambar','Karena tidak terhubung ke memori jangka panjang'],correct:1,explanation:'Working memory memiliki kapasitas terbatas (~4 chunk efektif). Karena itu kita perlu chunking—mengelompokkan informasi menjadi unit bermakna.'}
+],
+flashcards:[
+{front:'Apa itu retrieval practice?',back:'Mempraktikkan pengambilan informasi dari memori tanpa melihat sumber—misalnya menguji diri, free recall, atau flashcards. Terbukti jauh lebih efektif daripada membaca ulang.'},
+{front:'Apa yang dimaksud dengan spaced repetition?',back:'Teknik mengulang materi pada interval waktu yang meningkat (misalnya 1 hari, 3 hari, 7 hari, 21 hari) untuk melawan kurva lupa.'},
+{front:'Apa itu kurva lupa (forgetting curve)?',back:'Temuan Ebbinghaus (1885): ingatan manusia menurun eksponensial seiring waktu jika tidak diulang. Dalam 24 jam, bisa turun 70%.'},
+{front:'Mengapa membaca ulang kurang efektif?',back:'Karena menciptakan ilusi kompetensi. Familiaritas dengan teks terasa seperti pemahaman, tetapi tidak memperkuat jalur pengambilan memori.'}
+]},
+
+{id:'prog-1',category:'programming',title:'Berpikir Komputasional',desc:'Cara berpikir seperti seorang programmer: memecah masalah, mengenali pola, dan menulis algoritma.',difficulty:'beginner',duration:20,
+objectives:['Memahami empat pilar computational thinking','Memecah masalah kompleks menjadi langkah-langkah','Mengenal apa itu algoritma dan pseudocode','Memahami konsep abstraksi dan pattern recognition'],
+sections:[
+{heading:'Apa Itu Berpikir Komputasional?',body:'Berpikir komputasional (computational thinking) adalah cara menyelesaikan masalah dengan pendekatan yang terstruktur, logis, dan dapat dieksekusi—baik oleh manusia maupun komputer. Ini bukan berarti "berpikir seperti komputer"; justru sebaliknya, ini adalah cara *manusia* merumuskan masalah agar komputer dapat membantu menyelesaikannya.\n\nKonsep ini dipopulerkan oleh Seymour Papert dan Jeannette Wing. Wing (2006) menyatakan bahwa computational thinking adalah keterampilan dasar yang seharusnya dimiliki semua orang, bukan hanya programmer—sama seperti membaca, menulis, dan berhitung.'},
+{heading:'Empat Pilar Berpikir Komputasional',body:'**1. Decomposition (Dekomposisi)** — Memecah masalah besar menjadi sub-masalah yang lebih kecil dan lebih mudah ditangani. Contoh: membuat aplikasi to-do list bisa dipecah menjadi: desain UI, penyimpanan data, logika tambah tugas, logika hapus tugas.\n\n**2. Pattern Recognition (Pengenalan Pola)** — Mengenali kesamaan antar masalah. Jika Anda sudah pernah membuat sistem login, Anda bisa menerapkan pola yang sama untuk sistem registrasi.\n\n**3. Abstraction (Abstraksi)** — Menyembunyikan detail yang tidak perlu dan fokus pada hal penting. Saat menyetir mobil, Anda tidak perlu memahami cara kerja mesin; cukup tahu cara pakai setir dan pedal.\n\n**4. Algorithm Design (Desain Algoritma)** — Merancang langkah-langkah solusi yang jelas, berurutan, dan berakhir. Inilah inti dari pemrograman.'},
+{heading:'Algoritma: Resep untuk Menyelesaikan Masalah',body:'Algoritma adalah urutan langkah yang jelas untuk menyelesaikan suatu masalah. Setiap algoritma harus memiliki tiga sifat:\n\n- **Finiteness**: harus berakhir setelah sejumlah langkah terbatas.\n- **Definiteness**: setiap langkah harus jelas dan tidak ambigu.\n- **Effectiveness**: setiap langkah harus cukup sederhana untuk dijalankan.\n\nContoh algoritma sederhana untuk mencari nama di buku telepon (yang diurutkan alfabetis):\n\n1. Buka buku di halaman tengah.\n2. Jika nama yang dicari ada di halaman itu, selesai.\n3. Jika nama lebih awal secara alfabetis, cari di paruh kiri.\n4. Jika lebih akhir, cari di paruh kanan.\n5. Ulangi langkah 1-4 pada bagian yang dipilih.\n\nIni disebut **binary search**—jauh lebih cepat daripada mencari halaman per halaman.'}
+],
+quiz:[
+{type:'multiple-choice',question:'Manakah yang BUKAN bagian dari empat pilar computational thinking?',options:['Decomposition','Pattern Recognition','Abstraction','Memorization'],correct:3,explanation:'Empat pilar computational thinking adalah decomposition, pattern recognition, abstraction, dan algorithm design. Memorization bukan bagian dari kerangka ini.'},
+{type:'multiple-choice',question:'Apa fungsi utama abstraksi dalam computational thinking?',options:['Menyembunyikan detail tidak relevan dan fokus pada hal penting','Membuat program lebih cepat','Mengganti kode dengan komentar','Menghapus kode tidak terpakai'],correct:0,explanation:'Abstraksi menyederhanakan dengan menyembunyikan detail tidak relevan, memungkinkan kita fokus pada konsep inti dan mengurangi kompleksitas.'},
+{type:'true-false',question:'Algoritma harus selalu memiliki akhir (finiteness).',correct:true,explanation:'Salah satu sifat wajib algoritma adalah finiteness—harus berakhir setelah sejumlah langkah terbatas. Program yang berjalan selamanya (infinite loop) melanggar prinsip ini.'}
+],
+flashcards:[
+{front:'Apa itu decomposition?',back:'Memecah masalah besar menjadi sub-masalah yang lebih kecil dan lebih mudah diselesaikan.'},
+{front:'Apa itu abstraksi dalam computational thinking?',back:'Menyembunyikan detail yang tidak perlu dan fokus pada aspek penting dari suatu masalah.'},
+{front:'Apa tiga sifat wajib algoritma?',back:'Finiteness (berakhir), definiteness (jelas/tidak ambigu), effectiveness (dapat dieksekusi).'},
+{front:'Apa itu pseudocode?',back:'Cara menulis algoritma dalam bahasa manusia terstruktur, tanpa terikat sintaks bahasa pemrograman tertentu.'}
+]},
+
+{id:'web-1',category:'web',title:'HTML: Fondasi Struktur Web',desc:'Memahami HTML sebagai bahasa markup yang mendasari semua halaman web modern.',difficulty:'beginner',duration:22,
+objectives:['Memahami apa itu HTML dan perannya di web','Mengenal struktur dokumen HTML yang benar','Menguasai tag-tag semantik utama','Menerapkan prinsip semantic HTML untuk aksesibilitas'],
+sections:[
+{heading:'Apa Itu HTML?',body:'HTML (HyperText Markup Language) adalah bahasa markup yang digunakan untuk membuat struktur halaman web. Ini bukan bahasa pemrograman—HTML tidak memiliki logika, variabel, atau alur kontrol. Tugasnya hanya satu: **mendeskripsikan struktur dan makna konten**.\n\nSetiap elemen HTML memberi tahu browser apa itu konten: apakah ini judul, paragraf, gambar, tautan, atau daftar. Browser kemudian menggunakan informasi ini (bersama CSS dan JavaScript) untuk menampilkan halaman.'},
+{heading:'Anatomi Dokumen HTML',body:'Setiap dokumen HTML memiliki struktur dasar:\n\n```html\n\x3c!DOCTYPE html\x3e\n\x3chtml lang="id"\x3e\n\x3chead\x3e\n  \x3cmeta charset="UTF-8"\x3e\n  \x3cmeta name="viewport" content="width=device-width, initial-scale=1.0"\x3e\n  \x3ctitle\x3eJudul Halaman\x3c/title\x3e\n\x3c/head\x3e\n\x3cbody\x3e\n  \x3ch1\x3eHalo, Dunia!\x3c/h1\x3e\n  \x3cp\x3eIni paragraf pertama saya.\x3c/p\x3e\n\x3c/body\x3e\n\x3c/html\x3e\n```\n\n- `\x3c!DOCTYPE html\x3e` memberi tahu browser ini adalah HTML5.\n- `\x3chtml lang="id"\x3e` mendeklarasikan bahasa (penting untuk screen reader).\n- `\x3chead\x3e` berisi metadata yang tidak terlihat langsung.\n- `\x3cbody\x3e` berisi konten yang tampil di layar.'},
+{heading:'Tag Semantik vs Tag Generik',body:'HTML menyediakan dua jenis tag: **semantik** (memiliki makna) dan **generik** (tidak memiliki makna spesifik).\n\nTag generik:\n- `\x3cdiv\x3e` — kontainer blok tanpa makna\n- `\x3cspan\x3e` — kontainer inline tanpa makna\n\nTag semantik:\n- `\x3cheader\x3e` — bagian kepala halaman atau bagian\n- `\x3cnav\x3e` — kumpulan tautan navigasi\n- `\x3cmain\x3e` — konten utama halaman\n- `\x3carticle\x3e` — konten mandiri (artikel blog, komentar)\n- `\x3csection\x3e` — bagian tematik\n- `\x3caside\x3e` — konten samping\n- `\x3cfooter\x3e` — bagian kaki\n\n**Mengapa tag semantik penting?**\n\n1. **Aksesibilitas**: Screen reader mengandalkan tag semantik untuk menavigasi halaman.\n2. **SEO**: Mesin pencari memahami struktur konten lebih baik.\n3. **Maintainability**: Kode lebih mudah dipahami oleh manusia.'},
+{heading:'Form dan Input',body:'Form adalah cara utama pengguna berinteraksi dengan web. Contoh form sederhana:\n\n```html\n\x3cform action="/submit" method="post"\x3e\n  \x3clabel for="nama"\x3eNama:\x3c/label\x3e\n  \x3cinput type="text" id="nama" name="nama" required\x3e\n  \n  \x3clabel for="email"\x3eEmail:\x3c/label\x3e\n  \x3cinput type="email" id="email" name="email" required\x3e\n  \n  \x3cbutton type="submit"\x3eKirim\x3c/button\x3e\n\x3c/form\x3e\n```\n\nPerhatikan penggunaan `\x3clabel for="..."\x3e` yang terhubung ke `id` input. Ini penting untuk aksesibilitas—klik label akan memfokuskan input, dan screen reader akan membacakan label saat input difokus.\n\nAtribut `required` memberi tahu browser untuk memvalidasi bahwa field ini tidak boleh kosong sebelum form dikirim.'},
+{heading:'Prinsip Menulis HTML yang Baik',body:'**1. Gunakan tag sesuai maknanya.** Jangan gunakan `\x3cdiv\x3e` untuk tombol—gunakan `\x3cbutton\x3e`. Jangan gunakan `\x3cb\x3e` untuk penekanan semantik—gunakan `\x3cstrong\x3e`.\n\n**2. Satu halaman, satu `\x3ch1\x3e`.** `\x3ch1\x3e` adalah judul utama. Gunakan `\x3ch2\x3e`, `\x3ch3\x3e`, dst. untuk hierarki.\n\n**3. Selalu sertakan atribut `alt` pada gambar.** Atribut ini dibaca oleh screen reader dan ditampilkan jika gambar gagal dimuat. Untuk gambar dekoratif murni, gunakan `alt=""`.\n\n**4. Gunakan struktur heading yang logis.** Jangan lompat dari `\x3ch2\x3e` ke `\x3ch4\x3e` hanya untuk alasan visual.\n\n**5. Validasi HTML Anda.** Gunakan validator W3C untuk memastikan markup valid.'}
+],
+quiz:[
+{type:'multiple-choice',question:'Apa fungsi atribut lang="id" pada tag \x3chtml\x3e?',options:['Mengatur bahasa tampilan browser','Memberi tahu screen reader dan mesin pencari bahasa dokumen','Menerjemahkan halaman otomatis','Mengubah encoding karakter'],correct:1,explanation:'Atribut lang membantu screen reader menggunakan pengucapan yang benar dan membantu mesin pencari memahami bahasa konten. Ini praktik aksesibilitas penting.'},
+{type:'multiple-choice',question:'Manakah tag yang paling tepat untuk konten navigasi utama?',options:['\x3cdiv\x3e','\x3cmenu\x3e','\x3cnav\x3e','\x3clinks\x3e'],correct:2,explanation:'\x3cnav\x3e adalah tag semantik untuk bagian navigasi. Ini membantu screen reader mengidentifikasi dan melompat ke area navigasi.'},
+{type:'true-false',question:'Penggunaan \x3cdiv\x3e untuk semua kontainer adalah praktik terbaik karena lebih fleksibel.',correct:false,explanation:'Meskipun fleksibel, penggunaan \x3cdiv\x3e berlebihan menghilangkan makna semantik. Tag semantik seperti \x3carticle\x3e, \x3csection\x3e, \x3cnav\x3e lebih baik untuk aksesibilitas dan SEO.'},
+{type:'multiple-choice',question:'Mengapa atribut alt pada \x3cimg\x3e penting?',options:['Mempercepat loading gambar','Memberi teks alternatif bagi screen reader dan saat gambar gagal dimuat','Mengubah ukuran gambar','Mengatur posisi gambar'],correct:1,explanation:'Atribut alt adalah teks alternatif yang dibaca screen reader untuk pengguna tunanetra, dan ditampilkan jika gambar gagal dimuat.'}
+],
+flashcards:[
+{front:'Apa perbedaan \x3cstrong\x3e dan \x3cb\x3e?',back:'\x3cstrong\x3e memiliki makna semantik "penting", sedangkan \x3cb\x3e hanya styling bold tanpa makna. Screen reader akan memberi penekanan pada \x3cstrong\x3e.'},
+{front:'Apa fungsi \x3c!DOCTYPE html\x3e?',back:'Memberi tahu browser bahwa dokumen menggunakan standar HTML5. Tanpa ini, browser bisa masuk ke "quirks mode" yang menyebabkan perilaku tidak konsisten.'},
+{front:'Tag semantik untuk konten utama halaman?',back:'\x3cmain\x3e. Hanya boleh ada satu \x3cmain\x3e per halaman, dan harus berisi konten utama.'},
+{front:'Mengapa \x3clabel\x3e penting untuk input form?',back:'Menghubungkan label dengan input via atribut for/id, meningkatkan aksesibilitas (screen reader), dan memungkinkan klik label untuk fokus input.'}
+]},
+
+{id:'crit-1',category:'critical',title:'Dasar Berpikir Kritis',desc:'Bagaimana membedakan klaim yang valid dari yang menyesatkan, dan berpikir lebih jernih.',difficulty:'beginner',duration:20,
+objectives:['Memahami apa itu berpikir kritis','Mengenali logical fallacies umum','Membedakan korelasi dan kausalitas','Menerapkan kerangka evaluasi klaim'],
+sections:[
+{heading:'Apa Itu Berpikir Kritis?',body:'Berpikir kritis adalah kemampuan menganalisis informasi secara objektif dan membuat penilaian yang beralasan. Ini bukan tentang bersikap sinis atau selalu tidak setuju—ini tentang **menguji klaim sebelum mempercayainya**.\n\nMenurut Foundation for Critical Thinking, berpikir kritis melibatkan:\n\n- **Interpretasi**: memahami makna informasi\n- **Analisis**: mengidentifikasi argumen dan klaim\n- **Evaluasi**: menilai kredibilitas bukti\n- **Inferensi**: menarik kesimpulan masuk akal\n- **Explanation**: menjelaskan penalaran Anda\n- **Self-regulation**: memeriksa bias Anda sendiri\n\nDi era informasi melimpah—dan misinformasi yang sama melimpahnya—kemampuan ini bukan lagi opsional, tetapi kebutuhan dasar.'},
+{heading:'Korelasi Bukan Kausalitas',body:'Salah satu kesalahan paling umum dalam penalaran adalah menganggap bahwa jika dua hal terjadi bersamaan, yang satu menyebabkan yang lain. Ini disebut **cum hoc ergo propter hoc**.\n\nContoh: "Orang yang makan lebih banyak es krim melaporkan tingkat kebahagiaan lebih tinggi. Jadi es krim membuat bahagia."\n\nSebenarnya, korelasi bisa dijelaskan oleh:\n\n1. **Kausalitas terbalik**: mungkin orang yang bahagia lebih cenderung membeli es krim.\n2. **Variabel ketiga**: cuaca cerah mungkin menyebabkan keduanya—lebih banyak es krim *dan* suasana hati lebih baik.\n3. **Kebetulan**: dengan data cukup banyak, korelasi acak pasti muncul.\n\nUntuk membuktikan kausalitas, dibutuhkan eksperimen terkontrol.'},
+{heading:'Logical Fallacies yang Sering Dijumpai',body:'**Ad Hominem** — Menyerang orang yang berargumen, bukan argumennya. Contoh: "Kamu tidak mungkin benar soal ekonomi karena kamu belum punya rumah."\n\n**Straw Man** — Memutarbalikkan argumen lawan menjadi versi yang lebih lemah, lalu menyerangnya. Contoh: A: "Kita harus mengurangi konsumsi gula." B: "Jadi kamu mau melarang semua makanan enak?"\n\n**Appeal to Authority** — Menganggap klaim benar hanya karena yang mengucapkan adalah tokoh terkenal. Otoritas yang relevan adalah bukti, bukan gelar.\n\n**False Dilemma** — Menyajikan dua opsi seolah-olah hanya itu pilihannya. Contoh: "Kalau tidak mendukung kebijakan ini, berarti kamu tidak peduli."\n\n**Slippery Slope** — Mengklaim satu langkah kecil akan menyebabkan konsekuensi ekstrem tanpa bukti.\n\n**Confirmation Bias** — Kecenderungan mencari informasi yang mendukung keyakinan yang sudah ada.'},
+{heading:'Kerangka Evaluasi Klaim',body:'Ketika Anda mendengar sebuah klaim, gunakan kerangka ini:\n\n**1. Apa klaimnya secara tepat?** Seringkali klaim ambigu. "Gula buruk"—untuk siapa? dalam jumlah berapa? Klaim yang tepat bisa dievaluasi; klaim samar tidak.\n\n**2. Siapa yang mengklaim, dan apa motifnya?** Bukan berarti mengabaikan klaim dari orang dengan motif. Tapi sadarilah bahwa motif bisa memengaruhi seleksi bukti.\n\n**3. Apa buktinya?** Bukti anekdotal ("saya pernah...") lemah. Bukti dari studi terkontrol lebih kuat. Bukti dari meta-analisis paling kuat.\n\n**4. Apakah ada penjelasan alternatif?** Sebelum menerima klaim, tanyakan: adakah penjelasan lain yang lebih masuk akal?\n\n**5. Apakah klaimnya dapat difalsifikasi?** Klaim yang tidak mungkin salah dalam kondisi apa pun tidak informatif. Karl Popper menekankan pentingnya **falsifiability**.\n\nTerapkan kerangka ini pada iklan, berita, klaim politik, bahkan keyakinan Anda sendiri.'},
+{heading:'Melatih Berpikir Kritis Setiap Hari',body:'Berpikir kritis adalah keterampilan, bukan bakat. Ia dilatih melalui latihan konsisten.\n\n**Latihan praktis:**\n\n- **Tanya "bagaimana jika sebaliknya?"** ketika membaca berita.\n- **Cari sumber primer.** Jangan puas dengan berita yang mengutip studi; cari studinya sendiri jika memungkinkan.\n- **Tulis argumen terkuat dari sudut pandang berlawanan** dengan keyakinan Anda. Ini disebut *steelmanning*.\n- **Bedakan observasi, interpretasi, dan opini.** "Suhu turun 5 derajat" (observasi) berbeda dengan "hari ini dingin sekali" (interpretasi) dan "hari ini hari terburuk" (opini).\n- **Kenali bias Anda.** Setiap orang punya bias. Yang membedakan pemikir kritis adalah kesadaran akan biasnya sendiri.\n\nIngatlah pepatah dari Richard Feynman: *"Prinsip pertama adalah Anda tidak boleh menipu diri sendiri—dan Anda adalah orang yang paling mudah ditipu."*'}
+],
+quiz:[
+{type:'multiple-choice',question:'Seseorang berkata: "Kalau kamu tidak setuju dengan kebijakan ini, berarti kamu tidak peduli pada rakyat." Ini contoh dari:',options:['Ad hominem','False dilemma','Straw man','Appeal to authority'],correct:1,explanation:'Ini adalah false dilemma (dilema palsu): menyajikan dua opsi seolah-olah hanya ada dua, padahal seseorang bisa peduli pada rakyat tapi tidak setuju dengan kebijakan tertentu.'},
+{type:'true-false',question:'Jika dua variabel berkorelasi, maka yang satu pasti menyebabkan yang lain.',correct:false,explanation:'Korelasi tidak menyiratkan kausalitas. Ada kemungkinan kausalitas terbalik, variabel ketiga, atau korelasi kebetulan. Untuk membuktikan kausalitas dibutuhkan eksperimen terkontrol.'},
+{type:'multiple-choice',question:'Apa itu "steelmanning"?',options:['Menyerang argumen lawan dengan keras','Membangun argumen terkuat dari sudut pandang berlawanan dengan keyakinan kita','Menggunakan logam sebagai bahan bangunan','Menghindari diskusi'],correct:1,explanation:'Steelmanning adalah kebalikan dari straw man: alih-alih melemahkan argumen lawan, Anda justru membangun versi terkuat dari argumen mereka untuk memahaminya lebih baik.'},
+{type:'multiple-choice',question:'Mengapa klaim yang tidak dapat difalsifikasi dianggap lemah secara ilmiah?',options:['Karena sulit diucapkan','Karena jika tidak mungkin salah dalam kondisi apa pun, klaim itu tidak memberi informasi yang dapat diuji','Karena melanggar hukum','Karena tidak populer'],correct:1,explanation:'Falsifiability (Popper) berarti klaim harus bisa diuji dan berpotensi salah. Klaim yang selalu benar dalam kondisi apa pun tidak informatif.'}
+],
+flashcards:[
+{front:'Apa itu ad hominem?',back:'Logical fallacy yang menyerang orang yang berargumen, bukan argumennya.'},
+{front:'Apa perbedaan korelasi dan kausalitas?',back:'Korelasi: dua hal cenderung terjadi bersamaan. Kausalitas: yang satu benar-benar menyebabkan yang lain. Korelasi tidak membuktikan kausalitas.'},
+{front:'Apa itu straw man fallacy?',back:'Memutarbalikkan argumen lawan menjadi versi yang lebih lemah atau salah, lalu menyerang versi itu—bukan argumen aslinya.'},
+{front:'Apa itu falsifiability?',back:'Prinsip dari Karl Popper: klaim ilmiah harus bisa diuji dan berpotensi salah. Klaim yang tidak mungkin salah tidak informatif.'}
+]},
+
+{id:'fin-1',category:'finance',title:'Literasi Keuangan Dasar',desc:'Prinsip-prinsip fundamental mengelola uang yang jarang diajarkan di sekolah.',difficulty:'beginner',duration:20,
+objectives:['Memahami konsep bunga majemuk','Membedakan aset dan liabilitas','Mengenal dana darurat','Menerapkan kerangka budgeting sederhana'],
+sections:[
+{heading:'Mengapa Literasi Keuangan Penting',body:'Literasi keuangan adalah kemampuan memahami dan menerapkan konsep keuangan dalam pengambilan keputusan. Ini mencakup pengetahuan tentang menabung, berinvestasi, mengelola utang, dan merencanakan masa depan.\n\nSayangnya, banyak orang tidak pernah mendapatkan pendidikan formal tentang topik ini. Hasilnya adalah keputusan keuangan yang diambil tanpa pemahaman.\n\nKabar baiknya: prinsip-prinsip dasarnya sederhana. Jika Anda memahami beberapa konsep inti, Anda sudah selangkah lebih maju dari kebanyakan orang.'},
+{heading:'Bunga Majemuk: Keajaiban yang Sering Diabaikan',body:'**Bunga majemuk** (compound interest) berarti bunga yang Anda peroleh juga menghasilkan bunga di periode berikutnya. Contoh:\n\n- Anda menabung Rp 10.000.000 dengan bunga 8% per tahun.\n- Tahun 1: Anda punya Rp 10.800.000\n- Tahun 2: Anda punya Rp 11.664.000 (bunga tahun lalu juga berbunga)\n- Setelah 20 tahun: sekitar Rp 46.600.000—tanpa menambah tabungan sepeser pun.\n\n**Rumus:** A = P × (1 + r)^t\n- A = jumlah akhir\n- P = modal awal\n- r = tingkat bunga per periode\n- t = jumlah periode\n\nPrinsip ini berlaku dua arah. Untuk tabungan, ini menguntungkan. Untuk utang berbunga tinggi (kartu kredit), ini menghancurkan.'},
+{heading:'Aset vs Liabilitas',body:'Robert Kiyosaki mempopulerkan pembedaan sederhana namun kuat ini:\n\n- **Aset** adalah sesuatu yang **menghasilkan** uang atau nilainya cenderung naik. Contoh: saham, obligasi, properti sewa, bisnis.\n- **Liabilitas** adalah sesuatu yang **menguras** uang atau nilainya cenderung turun. Contoh: utang konsumtif, mobil yang terus turun nilainya.\n\nPerhatikan: rumah bisa menjadi aset atau liabilitas, tergantung apakah ia menghasilkan (disewakan) atau menguras (KPR + biaya perawatan).\n\n**Prinsip kunci:** semakin banyak aset dan semakin sedikit liabilitas, semakin cepat kekayaan bersih (net worth) Anda bertumbuh.\n\n*Net worth = total aset − total liabilitas.*'},
+{heading:'Dana Darurat',body:'Dana darurat adalah uang yang disisihkan khusus untuk keadaan tidak terduga: kehilangan pekerjaan, sakit, atau perbaikan mendesak. Ini adalah fondasi keamanan finansial.\n\n**Berapa banyak?**\nAturan umum:\n- **3–6 bulan pengeluaran** untuk pekerja tetap.\n- **6–12 bulan pengeluaran** untuk freelancer atau pekerja tidak tetap.\n\nContoh: Jika pengeluaran bulanan Anda Rp 5.000.000, dana darurat ideal adalah Rp 15.000.000 – Rp 30.000.000.\n\n**Karakteristik dana darurat:**\n- Likuid (mudah diakses dalam 1–2 hari).\n- Aman (bukan di instrumen berisiko).\n- Terpisah dari rekening sehari-hari.\n\nDana darurat bukan investasi—tujuannya bukan menghasilkan, tapi melindungi Anda dari keharusan berutang saat krisis.'},
+{heading:'Kerangka Budgeting Sederhana: 50/30/20',body:'Ada banyak metode budgeting. Salah satu yang paling mudah diingat adalah **50/30/20** (dipopulerkan oleh Elizabeth Warren):\n\n- **50% kebutuhan pokok**: sewa, makan, transportasi, tagihan dasar.\n- **30% keinginan**: hiburan, hobi, makan di luar, langganan.\n- **20% tabungan dan pelunasan utang**: dana darurat, investasi, pembayaran utang.\n\nJika angka 20% terasa berat, mulailah dari 1%. Yang penting adalah **konsistensi**, bukan besaran awal.\n\n**Aturan penting:** Automatisasikan. Pindahkan 20% ke tabungan/investasi segera setelah gaji masuk—jangan menunggu "sisa". Prinsipnya: *pay yourself first*.\n\nJika pengeluaran pokok melebihi 50% (umum di kota besar), sesuaikan proporsi: misalnya 60/20/20 atau 70/20/10. Tidak ada angka yang sakral.'}
+],
+quiz:[
+{type:'multiple-choice',question:'Jika Anda menabung Rp 10.000.000 dengan bunga majemuk 8% per tahun, berapa perkiraan jumlah setelah 20 tahun?',options:['Rp 16.000.000','Rp 26.000.000','Rp 46.600.000','Rp 80.000.000'],correct:2,explanation:'Dengan rumus A = P(1+r)^t: 10.000.000 × (1,08)^20 ≈ 10.000.000 × 4,66 ≈ Rp 46.600.000. Inilah kekuatan bunga majemuk.'},
+{type:'true-false',question:'Rumah selalu dianggap sebagai aset dalam pembukuan keuangan pribadi.',correct:false,explanation:'Rumah bisa menjadi aset atau liabilitas tergantung kondisinya. Jika menghasilkan (disewakan), ia aset. Jika menguras uang tanpa pemasukan, ia liabilitas dari sudut pandang arus kas.'},
+{type:'multiple-choice',question:'Berapa jumlah dana darurat yang umumnya direkomendasikan untuk pekerja tetap?',options:['1 bulan pengeluaran','3–6 bulan pengeluaran','12–24 bulan pengeluaran','Tidak perlu dana darurat'],correct:1,explanation:'Untuk pekerja tetap, dana darurat 3–6 bulan pengeluaran dianggap cukup. Untuk freelancer disarankan 6–12 bulan.'},
+{type:'multiple-choice',question:'Dalam kerangka 50/30/20, 20% dialokasikan untuk apa?',options:['Kebutuhan pokok','Keinginan/hiburan','Tabungan dan pelunasan utang','Pajak'],correct:2,explanation:'50% kebutuhan, 30% keinginan, 20% tabungan dan pelunasan utang. Jika 20% terasa berat, mulai dari angka kecil apa pun dan naikkan bertahap.'}
+],
+flashcards:[
+{front:'Apa itu bunga majemuk?',back:'Bunga yang dihitung dari pokok awal DAN bunga yang sudah terkumpul. Rumus: A = P(1+r)^t.'},
+{front:'Apa perbedaan aset dan liabilitas?',back:'Aset menghasilkan uang atau naik nilainya. Liabilitas menguras uang atau turun nilainya.'},
+{front:'Berapa dana darurat yang ideal?',back:'3–6 bulan pengeluaran untuk pekerja tetap; 6–12 bulan untuk freelancer/pekerja tidak tetap.'},
+{front:'Apa itu kerangka 50/30/20?',back:'50% kebutuhan, 30% keinginan, 20% tabungan dan pelunasan utang.'}
+]},
+
+{id:'prod-1',category:'productivity',title:'Sistem Produktivitas Minimalis',desc:'Bagaimana membangun sistem yang membantu Anda fokus pada hal yang benar-benar penting.',difficulty:'beginner',duration:16,
+objectives:['Memahami perbedaan produktif dan sibuk','Mengenal Eisenhower Matrix','Menerapkan time blocking','Membangun sistem review mingguan'],
+sections:[
+{heading:'Produktif vs Sibuk',body:'Banyak orang mengira produktivitas berarti melakukan lebih banyak hal. Ini keliru. Produktivitas sejati adalah **melakukan hal yang benar dengan cara yang efektif**—bukan sekadar sibuk.\n\nPeter Drucker, bapak manajemen modern, mengatakan: *"There is nothing so useless as doing efficiently that which should not be done at all."* (Tidak ada yang lebih tidak berguna daripada melakukan dengan efisien hal yang seharusnya tidak dilakukan sama sekali.)\n\nSebelum menanyakan "bagaimana saya bisa lebih cepat?", tanyakan dulu "apakah ini hal yang tepat untuk saya kerjakan?".'}
+],
+quiz:[
+{type:'multiple-choice',question:'Apa definisi produktivitas yang paling tepat?',options:['Melakukan sebanyak mungkin pekerjaan','Melakukan hal yang benar dengan cara efektif','Bekerja paling lama','Menyelesaikan tugas tercepat'],correct:1,explanation:'Produktivitas sejati bukan tentang jumlah, tapi tentang melakukan hal yang tepat dengan cara efektif. Bekerja efisien pada hal yang salah tetap tidak produktif.'},
+{type:'true-false',question:'Sibuk selalu berarti produktif.',correct:false,explanation:'Sibuk ≠ produktif. Banyak orang sibuk tapi tidak menyelesaikan hal yang benar-benar penting. Produktivitas mengukur hasil bermakna, bukan aktivitas.'}
+],
+flashcards:[
+{front:'Apa perbedaan sibuk dan produktif?',back:'Sibuk = banyak aktivitas. Produktif = melakukan hal yang benar dengan cara efektif. Sibuk belum tentu produktif.'},
+{front:'Apa quote terkenal Peter Drucker tentang efisiensi?',back:'"There is nothing so useless as doing efficiently that which should not be done at all."'}
+]},
+
+{id:'ai-1',category:'ai',title:'Pengantar Kecerdasan Buatan',desc:'Apa itu AI, bagaimana ia bekerja, dan apa yang bisa serta tidak bisa dilakukannya.',difficulty:'beginner',duration:20,
+objectives:['Memahami definisi AI dan machine learning','Mengenal kategori supervised dan unsupervised learning','Memahami keterbatasan AI saat ini','Mengenali aplikasi AI di kehidupan sehari-hari'],
+sections:[
+{heading:'Apa Itu Kecerdasan Buatan?',body:'Kecerdasan buatan (artificial intelligence/AI) adalah bidang ilmu komputer yang berupaya menciptakan sistem yang dapat melakukan tugas-tugas yang biasanya membutuhkan kecerdasan manusia—seperti mengenali gambar, memahami bahasa, atau membuat keputusan.\n\nIstilah "AI" mencakup banyak hal. Yang kita lihat saat ini (2020-an) disebut **narrow AI** atau **weak AI**—sistem yang sangat baik pada satu tugas spesifik (mengenali wajah, menerjemahkan teks, bermain catur) tetapi tidak bisa menggeneralisasi ke tugas lain.\n\n**Artificial General Intelligence (AGI)**—AI yang bisa melakukan apa saja seperti manusia—belum ada dan masih menjadi subjek penelitian dan perdebatan.'},
+{heading:'Machine Learning: Inti AI Modern',body:'Sebagian besar AI modern adalah **machine learning (ML)**. Alih-alih memprogram aturan secara eksplisit ("jika X maka Y"), kita memberi komputer banyak contoh dan membiarkan algoritma menemukan pola sendiri.\n\nContoh klasik: alih-alih memprogram aturan "kucing punya telinga runcing, kumis, mata bulat", kita beri komputer 100.000 foto kucing dan non-kucing. Algoritma secara bertahap belajar fitur apa yang membedakan mereka.\n\nAda beberapa jenis ML:\n\n- **Supervised learning**: belajar dari data berlabel (input → output yang benar). Contoh: klasifikasi email spam.\n- **Unsupervised learning**: menemukan pola dalam data tanpa label. Contoh: segmentasi pelanggan.\n- **Reinforcement learning**: belajar dari reward dan punishment. Contoh: AI bermain game.'},
+{heading:'Keterbatasan AI yang Penting Dipahami',body:'AI sangat kuat, tetapi memiliki keterbatasan fundamental yang penting untuk dipahami:\n\n**1. AI tidak "memahami" seperti manusia.** Model bahasa seperti GPT menghasilkan teks yang koheren, tetapi mereka memprediksi kata berikutnya—bukan "memahami" makna seperti manusia.\n\n**2. AI bisa bias.** Jika data training mengandung bias (misalnya bias gender, ras), model akan mempelajari dan memperkuat bias tersebut.\n\n**3. AI bisa salah dengan percaya diri.** Model AI bisa menghasilkan jawaban yang salah dengan sangat meyakinkan—fenomena yang disebut **hallucination**.\n\n**4. AI tidak memiliki common sense.** AI bisa mengalahkan grandmaster catur tapi tidak tahu bahwa air membasahi.\n\n**5. Data pribadi dan privasi.** Model besar dilatih pada data internet yang mungkin mengandung informasi pribadi.'}
+],
+quiz:[
+{type:'multiple-choice',question:'Apa itu "narrow AI"?',options:['AI yang sangat pintar','AI yang hanya bagus pada satu tugas spesifik','AI yang bisa melakukan segala hal','AI yang belum ada'],correct:1,explanation:'Narrow AI (weak AI) adalah sistem yang sangat baik pada satu tugas spesifik tetapi tidak bisa menggeneralisasi ke tugas lain. Semua AI yang ada saat ini adalah narrow AI.'},
+{type:'multiple-choice',question:'Apa yang dimaksud dengan "hallucination" pada AI?',options:['AI mengalami gangguan visual','AI menghasilkan jawaban salah dengan sangat meyakinkan','AI tidak bisa berjalan','AI menggambar gambar acak'],correct:1,explanation:'Hallucination adalah fenomena di mana model AI menghasilkan informasi yang salah atau tidak ada, tetapi menyampaikannya dengan sangat yakin. Ini keterbatasan penting yang perlu diwaspadai.'},
+{type:'true-false',question:'Supervised learning menggunakan data yang memiliki label.',correct:true,explanation:'Supervised learning menggunakan data berlabel (input dengan output yang benar) untuk melatih model. Unsupervised learning menggunakan data tanpa label.'}
+],
+flashcards:[
+{front:'Apa itu narrow AI?',back:'AI yang hanya bagus pada satu tugas spesifik (misalnya mengenali wajah, menerjemahkan teks). Semua AI saat ini adalah narrow AI.'},
+{front:'Apa perbedaan supervised dan unsupervised learning?',back:'Supervised: data berlabel, belajar pemetaan input→output. Unsupervised: data tanpa label, menemukan pola tersembunyi.'},
+{front:'Apa itu "hallucination" pada AI?',back:'Fenomena di mana model AI menghasilkan jawaban salah atau tidak berdasar dengan sangat yakin. Keterbatasan penting yang perlu diwaspadai.'}
+]},
+
+{id:'learn-2',category:'learning',title:'Spaced Repetition & Active Recall',desc:'Panduan praktis menerapkan dua teknik belajar paling efektif yang didukung penelitian.',difficulty:'beginner',duration:15,
+objectives:['Memahami mekanisme SM-2 algorithm','Menerapkan active recall dalam sesi belajar','Merancang jadwal pengulangan yang realistis','Mengukur efektivitas teknik belajar'],
+sections:[
+{heading:'Mengapa Dua Teknik Ini Sangat Kuat',body:'Dari semua teknik belajar yang dipelajari oleh ilmu kognitif, dua yang paling konsisten menunjukkan hasil positif adalah **active recall** dan **spaced repetition**.\n\nKeduanya saling melengkapi. Active recall memastikan Anda benar-benar bisa mengingat—bukan sekadar familiar. Spaced repetition memastikan Anda mengingat dalam jangka panjang, bukan hanya sehari.\n\nKombinasi keduanya menjadi dasar sistem seperti Anki, SuperMemo, dan aplikasi flashcard modern.'},
+{heading:'SM-2 Algorithm: Cara Kerja Spaced Repetition',body:'**SM-2** adalah algoritma yang dikembangkan oleh Petr Wozniak pada 1987. Ini adalah salah satu algoritma spaced repetition paling berpengaruh dan masih menjadi dasar banyak aplikasi flashcard.\n\nPrinsip dasar SM-2:\n\n1. Setiap kartu memiliki **ease factor** (faktor kemudahan), mulai dari 2.5.\n2. Setiap kali Anda review kartu, Anda menilai seberapa mudah mengingatnya (biasanya dalam skala 0-5).\n3. Interval review berikutnya dihitung berdasarkan ease factor dan interval sebelumnya.\n4. Jika Anda gagal mengingat, interval reset ke awal.\n\n**Rumus interval:**\n- Review ke-1: 1 hari\n- Review ke-2: 6 hari\n- Review ke-3+: interval sebelumnya × ease factor\n\n**Ease factor diperbarui** setiap review: EF\' = EF + (0.1 − (5 − kualitas) × (0.08 + (5 − kualitas) × 0.02))\n\nDimana kualitas adalah nilai 0-5. EF tidak pernah turun di bawah 1.3.\n\nIni artinya kartu yang mudah akan diulang dengan interval lebih panjang (misalnya 1 bulan, 3 bulan, 1 tahun), sementara kartu sulit akan terus muncul lebih sering.'},
+{heading:'Cara Menerapkan Active Recall yang Efektif',body:'**1. Jangan lihat jawaban sebelum mencoba.** Ini terasa sulit—dan memang seharusnya. Usaha untuk mengingat adalah bagian dari penguatan memori.\n\n**2. Buat pertanyaan yang spesifik.** "Apa itu fotosintesis?" lebih efektif daripada "Ceritakan tentang biologi."\n\n**3. Gunakan elaborative interrogation.** Tanyakan "mengapa" dan "bagaimana", bukan hanya "apa".\n\n**4. Coba jelaskan ke orang lain.** Teknik Feynman: jelaskan konsep seolah-olah kepada anak 12 tahun. Jika Anda tidak bisa, Anda belum benar-benar paham.\n\n**5. Campur topik (interleaving).** Belajar satu topik terus-menerus terasa lebih mudah, tapi belajar bergantian topik menghasilkan retensi lebih baik.'},
+{heading:'Merancang Jadwal yang Realistis',body:'Kesalahan umum: membuat jadwal idealis lalu berhenti setelah seminggu.\n\n**Prinsip realistis:**\n\n1. **Mulai dari kecil.** 10 menit sehari lebih baik daripada 2 jam sekali seminggu, karena konsistensi lebih penting daripada intensitas.\n2. **Jangan menambah kartu baru jika Anda kewalahan.** Lebih baik menguasai 100 kartu daripada mengenal 1000 kartu secara dangkal.\n3. **Review setiap hari, meskipun hanya 5 menit.** Yang penting adalah tidak melewatkan hari.\n4. **Sesuaikan interval jika perlu.** Tidak ada aturan yang sakral—jika terlalu banyak kartu menumpuk, sesuaikan.\n\n**Penting:** Fleksibilitas adalah kunci. Sistem belajar terbaik adalah sistem yang Anda benar-benar jalankan.'}
+],
+quiz:[
+{type:'multiple-choice',question:'Apa fungsi ease factor dalam algoritma SM-2?',options:['Mengukur kesulitan kartu dan menentukan interval berikutnya','Menghitung jumlah kartu','Menentukan warna kartu','Mengatur waktu tidur'],correct:0,explanation:'Ease factor mengukur seberapa mudah kartu diingat, dan digunakan untuk menghitung interval review berikutnya. Semakin mudah, semakin panjang intervalnya.'},
+{type:'multiple-choice',question:'Mengapa interleaving (mencampur topik) lebih efektif daripada belajar satu topik terus-menerus?',options:['Karena lebih cepat selesai','Karena memaksa otak membedakan dan mengaitkan konteks, memperkuat retensi','Karena lebih mudah','Karena lebih menyenangkan'],correct:1,explanation:'Interleaving memaksa otak untuk secara aktif membedakan antar jenis masalah, yang memperkuat pemahaman dan retensi meskipun terasa lebih sulit saat belajar.'},
+{type:'true-false',question:'Active recall lebih efektif jika Anda mencoba mengingat sebelum melihat jawaban.',correct:true,explanation:'Usaha untuk mengingat—bahkan ketika Anda gagal—adalah bagian dari penguatan memori. Melihat jawaban sebelum mencoba menghilangkan manfaat utama dari active recall.'}
+],
+flashcards:[
+{front:'Apa itu SM-2 algorithm?',back:'Algoritma spaced repetition yang dikembangkan Petr Wozniak (1987). Menggunakan ease factor (mulai 2.5) untuk menghitung interval review berikutnya.'},
+{front:'Apa itu interleaving?',back:'Mencampur beberapa topik atau jenis soal dalam satu sesi belajar. Terbukti menghasilkan retensi lebih baik dibanding belajar satu topik terus-menerus.'},
+{front:'Apa itu teknik Feynman?',back:'Menjelaskan konsep seolah-olah kepada anak 12 tahun. Jika Anda tidak bisa menjelaskannya dengan sederhana, Anda belum benar-benar paham.'},
+{front:'Berapa interval dasar SM-2?',back:'Review ke-1: 1 hari. Review ke-2: 6 hari. Review ke-3 dan seterusnya: interval sebelumnya × ease factor.'}
+]}
+];
+
+var ACHIEVEMENTS=[
+{id:'first-lesson',title:'Langkah Pertama',desc:'Selesaikan lesson pertamamu',icon:'star',check:function(s){return Object.values(s.progress.lessons).filter(function(l){return l.completed;}).length>=1;}},
+{id:'five-lessons',title:'Pembelajar',desc:'Selesaikan 5 lessons',icon:'book',check:function(s){return Object.values(s.progress.lessons).filter(function(l){return l.completed;}).length>=5;}},
+{id:'streak-3',title:'Mulai Konsisten',desc:'Capai streak 3 hari',icon:'flame',check:function(s){return s.progress.streak.longest>=3;}},
+{id:'streak-7',title:'Konsistensi Seminggu',desc:'Capai streak 7 hari',icon:'flame',check:function(s){return s.progress.streak.longest>=7;}},
+{id:'streak-30',title:'Sebulan Penuh',desc:'Capai streak 30 hari',icon:'flame',check:function(s){return s.progress.streak.longest>=30;}},
+{id:'first-quiz',title:'Ujian Pertama',desc:'Selesaikan quiz pertamamu',icon:'quiz',check:function(s){return Object.keys(s.progress.quizzes).length>=1;}},
+{id:'quiz-master',title:'Quiz Master',desc:'Dapat skor 100% pada sebuah quiz',icon:'trophy',check:function(s){return Object.values(s.progress.quizzes).some(function(q){return (q.best||0)===100;});}},
+{id:'first-card',title:'Kartu Pertama',desc:'Buat flashcard pertamamu',icon:'cards',check:function(s){return s.flashcards.length>=1;}},
+{id:'ten-hours',title:'Sepuluh Jam',desc:'Total 10 jam belajar',icon:'clock',check:function(s){return Object.values(s.progress.dailyMinutes).reduce(function(a,b){return a+b;},0)>=600;}},
+{id:'first-note',title:'Catatan Pertama',desc:'Buat catatan pertamamu',icon:'notes',check:function(s){return s.notes.length>=1;}},
+{id:'first-focus',title:'Fokus!',desc:'Selesaikan sesi fokus pertamamu',icon:'focus',check:function(s){return s.progress.focusSessions.length>=1;}}
+];
+
+var STORE_KEY='selflearn:v3';
+var STORE_VERSION=3;
+
+function defaultState(){
+  return {
+    version:STORE_VERSION,
+    profile:{name:'Pelajar',createdAt:new Date().toISOString(),goals:{dailyMinutes:30,weeklyLessons:5}},
+    preferences:{fontSize:17,notifications:false,reducedMotion:false},
+    progress:{lessons:{},quizzes:{},dailyMinutes:{},focusSessions:[],streak:{current:0,longest:0,lastActiveDate:null},points:0,level:1},
+    notes:[],flashcards:[],customPaths:[],tasks:[],achievements:[]
+  };
+}
+
+var store={
+  _state:null,
+  load:function(){
+    try{
+      var raw=localStorage.getItem(STORE_KEY);
+      var base=defaultState();
+      if(!raw){this._state=base;this.save();return;}
+      var data=JSON.parse(raw);
+      this._state={
+        version:STORE_VERSION,
+        profile:Object.assign({},base.profile,data.profile||{}, {goals:Object.assign({},base.profile.goals,(data.profile&&data.profile.goals)||{})}),
+        preferences:Object.assign({},base.preferences,data.preferences||{}),
+        progress:Object.assign({},base.progress,data.progress||{}, {streak:Object.assign({},base.progress.streak,(data.progress&&data.progress.streak)||{})}),
+        notes:data.notes||[],
+        flashcards:data.flashcards||[],
+        customPaths:data.customPaths||[],
+        tasks:data.tasks||[],
+        achievements:data.achievements||[]
+      };
+    }catch(e){
+      console.error('[store] load failed',e);
+      this._state=defaultState();
+    }
+  },
+  save:function(){
+    try{localStorage.setItem(STORE_KEY,JSON.stringify(this._state));}
+    catch(e){console.error('[store] save failed',e);toast('Gagal menyimpan data','err');}
+  },
+  get:function(){if(!this._state)this.load();return this._state;},
+  update:function(fn){fn(this.get());this.save();},
+  export:function(){return JSON.stringify(this.get(),null,2);},
+  import:function(json){
+    var d=JSON.parse(json);
+    if(!d||!d.profile||!d.progress)throw new Error('Format tidak valid');
+    this._state=d;this.save();
+  },
+  reset:function(){this._state=defaultState();this.save();}
+};
+
+function recordActivity(min){
+  var s=store.get();
+  var d=today();
+  s.progress.dailyMinutes[d]=(s.progress.dailyMinutes[d]||0)+min;
+  var last=s.progress.streak.lastActiveDate;
+  if(last!==d){
+    var y=new Date();y.setDate(y.getDate()-1);var yISO=y.toISOString().slice(0,10);
+    if(last===yISO)s.progress.streak.current++;
+    else s.progress.streak.current=1;
+    s.progress.streak.lastActiveDate=d;
+    if(s.progress.streak.current>s.progress.streak.longest)s.progress.streak.longest=s.progress.streak.current;
+  }
+  checkAchievements();
+  store.save();
+}
+function addPoints(n){var s=store.get();s.progress.points+=n;s.progress.level=Math.max(1,Math.floor(s.progress.points/200)+1);store.save();}
+
+function checkAchievements(){
+  var s=store.get();
+  var unlocked={};
+  s.achievements.forEach(function(a){unlocked[a]=true;});
+  ACHIEVEMENTS.forEach(function(a){
+    if(!unlocked[a.id]&&a.check(s)){
+      s.achievements.push(a.id);
+      toast('🏆 Achievement: '+a.title,'ok');
+    }
+  });
+  store.save();
+}
+
+var routes={};
+function register(path,fn){routes[path]=fn;}
+function navigate(path){location.hash='#'+path;}
+function currentPath(){return(location.hash.replace(/^#/,'')||'/').split('?')[0];}
+
+function handleRoute(){
+  var path=currentPath();
+  var fn=routes[path]||routes['*'];
+  if(fn)fn(path);
+}
+
+window.addEventListener('hashchange',handleRoute);
+
+function renderShell(pageContent,opts){
+  opts=opts||{};
+  var s=store.get();
+  var profileInitial=(s.profile.name||'P').charAt(0).toUpperCase();
+  var path=currentPath();
+
+  var navGroups=[
+    {label:'Utama',items:[
+      {path:'/',icon:I.home,label:'Dashboard'},
+      {path:'/library',icon:I.library,label:'Library'},
+      {path:'/focus',icon:I.focus,label:'Focus Mode'}
+    ]},
+    {label:'Belajar',items:[
+      {path:'/flashcards',icon:I.cards,label:'Flashcards'},
+      {path:'/notes',icon:I.notes,label:'Catatan'},
+      {path:'/planner',icon:I.planner,label:'Planner'}
+    ]},
+    {label:'Progres',items:[
+      {path:'/analytics',icon:I.analytics,label:'Analytics'},
+      {path:'/achievements',icon:I.trophy,label:'Achievements'},
+      {path:'/skills',icon:I.skills,label:'Skill Tree'}
+    ]},
+    {label:'Lainnya',items:[
+      {path:'/search',icon:I.search,label:'Cari'},
+      {path:'/settings',icon:I.settings,label:'Pengaturan'}
+    ]}
+  ];
+
+  var nav=el('aside',{class:'sidebar',id:'sidebar'});
+  nav.append(
+    el('a',{class:'brand',href:'#/'},
+      el('div',{class:'brand-mark'},'S'),
+      el('div',{class:'brand-txt'},
+        el('span',{class:'brand-nm'},'SELFLEARN'),
+        el('span',{class:'brand-tg'},'Learn. Build. Repeat.')
+      )
+    )
+  );
+  var navInner=el('div',{class:'nav'});
+  navGroups.forEach(function(grp){
+    var g=el('div',{class:'nav-grp'});
+    g.append(el('div',{class:'nav-lbl'},grp.label));
+    grp.items.forEach(function(it){
+      var isActive=path===it.path||(it.path!=='/'&&path.indexOf(it.path)===0);
+      var item=el('a',{class:'nav-it'+(isActive?' active':''),href:'#'+it.path});
+      item.innerHTML=it.icon+'<span>'+it.label+'</span>';
+      g.append(item);
+    });
+    navInner.append(g);
+  });
+  nav.append(navInner);
+  nav.append(el('div',{class:'sb-foot'},
+    el('div',{class:'avatar'},profileInitial),
+    el('div',{class:'pr-meta'},
+      el('div',{class:'pr-nm'},s.profile.name),
+      el('div',{class:'pr-lv'},'Level '+s.progress.level+' · '+s.progress.points+' pts')
+    )
+  ));
+
+  var overlay=el('div',{class:'sb-overlay',id:'sb-overlay'});
+  var menuBtn=el('button',{class:'menu-tg','aria-label':'Buka menu'});
+  menuBtn.innerHTML=I.menu;
+  menuBtn.addEventListener('click',function(){
+    nav.classList.toggle('open');
+    overlay.classList.toggle('show');
+  });
+  overlay.addEventListener('click',function(){
+    nav.classList.remove('open');
+    overlay.classList.remove('show');
+  });
+
+  var topbar=el('header',{class:'topbar'},
+    menuBtn,
+    el('div',{},
+      el('div',{class:'tb-title'},opts.title||'SELFLEARN'),
+      opts.subtitle?el('div',{class:'tb-sub'},opts.subtitle):null
+    )
+  );
+
+  var main=el('main',{class:'main'},topbar,pageContent);
+  var shell=el('div',{class:'shell'},nav,overlay,main);
+
+  var app=$('#app');
+  app.innerHTML='';
+  app.append(shell);
+}
+
+function pageDashboard(){
+  var s=store.get();
+  var stats=computeStats();
+
+  var hour=new Date().getHours();
+  var greeting=hour<11?'Selamat pagi':hour<15?'Selamat siang':hour<19?'Selamat sore':'Selamat malam';
+  var firstName=s.profile.name.split(' ')[0];
+
+  var dailyGoal=s.profile.goals.dailyMinutes;
+  var todayMin=s.progress.dailyMinutes[today()]||0;
+  var goalPct=clamp(Math.round((todayMin/dailyGoal)*100),0,100);
+  var ringCirc=2*Math.PI*36;
+  var ringOff=ringCirc-(goalPct/100)*ringCirc;
+
+  var week=weeklyActivity();
+  var maxWeek=Math.max.apply(null, week.map(function(d){return d.minutes;}).concat([1]));
+
+  var lastViewed=Object.keys(s.progress.lessons)
+    .filter(function(k){return s.progress.lessons[k].viewedAt;})
+    .sort(function(a,b){return new Date(s.progress.lessons[b].viewedAt)-new Date(s.progress.lessons[a].viewedAt);})[0];
+  var continueLesson=lastViewed?LESSONS.find(function(l){return l.id===lastViewed;}):null;
+
+  var completedSet={};
+  Object.keys(s.progress.lessons).forEach(function(k){if(s.progress.lessons[k].completed)completedSet[k]=true;});
+  var recs=LESSONS.filter(function(l){return !completedSet[l.id];}).slice(0,4);
+
+  var content=el('div',{class:'content'});
+
+  var hero=el('div',{class:'dash-hero'});
+  var streakMsg = stats.streak>0 ? 'Streak '+stats.streak+' hari berturut-turut. Lanjutkan momentum belajar Anda.' : 'Mulai hari ini. Setiap pelajaran kecil adalah investasi.';
+  hero.innerHTML='<h1>'+greeting+', '+esc(firstName)+'.</h1><p>'+streakMsg+'</p>';
+  
+  var heroBtn=el('a',{class:'btn btn-pri',href:continueLesson?'#/lesson/'+continueLesson.id:'#/library'});
+  heroBtn.innerHTML=(continueLesson?'Lanjutkan Belajar ':'Mulai Belajar ')+I.arrowR;
+  hero.append(heroBtn);
+  content.append(hero);
+
+  var statsDiv=el('div',{class:'stats'});
+  var statData=[
+    {lbl:'Streak',val:stats.streak,meta:stats.streak>0?'Terpanjang: '+stats.longestStreak+' hari':'Belum ada streak'},
+    {lbl:'Total Belajar',val:stats.totalHours+'j',meta:stats.totalMinutes+' menit'},
+    {lbl:'Lesson Selesai',val:stats.completedLessons,meta:'dari '+LESSONS.length+' lesson'},
+    {lbl:'Level',val:stats.level,meta:stats.points+' points'}
+  ];
+  statData.forEach(function(st){
+    statsDiv.append(el('div',{class:'stat'},
+      el('div',{class:'stat-lbl'},st.lbl),
+      el('div',{class:'stat-val'},String(st.val)),
+      el('div',{class:'stat-meta'},st.meta)
+    ));
+  });
+  content.append(statsDiv);
+
+  var grid=el('div',{class:'dash-grid'});
+  var leftCol=el('div');
+  leftCol.append(el('div',{class:'section-head'},
+    el('h2',{class:'section-ttl'},'Lanjutkan Belajar'),
+    el('a',{class:'section-lnk',href:'#/library'},'Lihat semua →')
+  ));
+
+  if(continueLesson){
+    var cc=el('a',{class:'cont-card',href:'#/lesson/'+continueLesson.id});
+    var cat=CATEGORIES.find(function(c){return c.id===continueLesson.category;});
+    var prog=s.progress.lessons[continueLesson.id];
+    cc.innerHTML='<div class="cont-th">'+(continueLesson.title||'').charAt(0)+'</div>'+
+      '<div class="cont-meta">'+
+      '<div class="cont-ttl">'+esc(continueLesson.title)+'</div>'+
+      '<div class="cont-cat">'+esc(cat?cat.name:'')+' · '+continueLesson.duration+' menit · '+(prog&&prog.completed?'Selesai':'Sedang berlangsung')+'</div>'+
+      '</div>'+I.arrowR;
+    leftCol.append(cc);
+  } else {
+    leftCol.append(el('div',{class:'empty'},
+      el('div',{class:'empty-ttl'},'Belum ada lesson yang dimulai'),
+      el('div',{class:'empty-txt'},'Mulai dari library untuk memulai perjalanan belajar Anda.'),
+      el('a',{class:'btn btn-pri',href:'#/library'},'Jelajahi Library')
+    ));
+  }
+
+  if(recs.length){
+    leftCol.append(el('div',{class:'section',style:{marginTop:'var(--sp-6)'}},
+      el('div',{class:'section-head'},el('h2',{class:'section-ttl'},'Rekomendasi untuk Anda'))
+    ));
+    recs.forEach(function(r){
+      var cat=CATEGORIES.find(function(c){return c.id===r.category;});
+      var ri=el('a',{class:'rec-item',href:'#/lesson/'+r.id});
+      ri.innerHTML='<div class="rec-dot"></div>'+
+        '<div class="rec-bd">'+
+        '<div class="rec-ttl">'+esc(r.title)+'</div>'+
+        '<div class="rec-mt">'+esc(cat?cat.name:'')+' · '+r.duration+' menit · '+r.difficulty+'</div>'+
+        '</div>';
+      leftCol.append(ri);
+    });
+  }
+  grid.append(leftCol);
+
+  var rightCol=el('div');
+  rightCol.append(el('div',{class:'card',style:{marginBottom:'var(--sp-4)'}},
+    el('div',{class:'card-head'},el('h3',{class:'card-ttl'},'Target Harian')),
+    el('div',{class:'goal-row'},
+      el('div',{class:'ring-wrap',html:'<svg class="ring-svg" viewBox="0 0 80 80">'+
+          '<circle class="ring-bg" cx="40" cy="40" r="36" fill="none" stroke-width="6"/>'+
+          '<circle class="ring-fg" cx="40" cy="40" r="36" fill="none" stroke-width="6" stroke-dasharray="'+ringCirc+'" stroke-dashoffset="'+ringOff+'" stroke-linecap="round"/>'+
+        '</svg><div class="ring-txt">'+goalPct+'%</div>'}),
+      el('div',{},
+        el('div',{style:{fontSize:'var(--fs-sm)',fontWeight:'600',color:'var(--t-primary)'}},todayMin+' / '+dailyGoal+' menit'),
+        el('div',{class:'xs muted',style:{marginTop:'4px'}},goalPct>=100?'Target tercapai! 🎉':'Terus semangat!')
+      )
+    )
+  ));
+
+  rightCol.append(el('div',{class:'card'},
+    el('div',{class:'card-head'},el('h3',{class:'card-ttl'},'Minggu Ini')),
+    el('div',{class:'week-ch'},
+      week.map(function(d){
+        var h=d.minutes?Math.max(4,(d.minutes/maxWeek)*100):4;
+        return el('div',{class:'week-col'},
+          el('div',{class:'week-bar',style:{height:h+'%'},title:d.minutes+' menit'}),
+          el('div',{class:'week-day'},d.label)
+        );
+      })
+    )
+  ));
+
+  grid.append(rightCol);
+  content.append(grid);
+
+  renderShell(content,{title:'Dashboard',subtitle:greeting+', '+firstName});
+}
+
+function pageLibrary(){
+  var content=el('div',{class:'content'});
+  content.append(el('div',{style:{marginBottom:'var(--sp-6)'}},
+    el('h1',{style:{marginBottom:'var(--sp-2)'}},'Library'),
+    el('p',{style:{maxWidth:'560px',fontSize:'var(--fs-md)'}},'Jelajahi kategori di bawah ini. Setiap lesson telah disusun untuk memberikan pemahaman yang mendalam.')
+  ));
+
+  var grid=el('div',{class:'cat-grid'});
+  CATEGORIES.forEach(function(cat){
+    var lesInCat=LESSONS.filter(function(l){return l.category===cat.id;});
+    var cc=el('a',{class:'cat-card',href:'#/category/'+cat.id});
+    cc.innerHTML='<div class="cat-ic">'+I.book+'</div>'+
+      '<div class="cat-nm">'+esc(cat.name)+'</div>'+
+      '<div class="cat-cnt">'+lesInCat.length+' lesson</div>';
+    grid.append(cc);
+  });
+  content.append(grid);
+  renderShell(content,{title:'Library',subtitle:'Jelajahi semua topik'});
+}
+
+function pageCategory(catId){
+  var s=store.get();
+  var cat=CATEGORIES.find(function(c){return c.id===catId;});
+  if(!cat){content404();return;}
+  var lessons=LESSONS.filter(function(l){return l.category===catId;});
+  var content=el('div',{class:'content'});
+  content.append(el('div',{style:{marginBottom:'var(--sp-6)'}},
+    el('a',{href:'#/library',class:'section-lnk',style:{display:'inline-block',marginBottom:'var(--sp-3)'}},'← Kembali ke Library'),
+    el('h1',{style:{marginBottom:'var(--sp-2)'}},cat.name),
+    el('p',{style:{maxWidth:'560px'}},cat.desc)
+  ));
+  if(!lessons.length){
+    content.append(el('div',{class:'empty'},'Belum ada lesson di kategori ini.'));
+  } else {
+    lessons.forEach(function(l){
+      var prog=s.progress.lessons[l.id]||{};
+      var row=el('a',{class:'les-row'+(prog.completed?' done':''),href:'#/lesson/'+l.id});
+      row.innerHTML='<div class="les-num">'+(prog.completed?'✓':'→')+'</div>'+
+        '<div class="les-bd">'+
+        '<div class="les-ttl">'+esc(l.title)+'</div>'+
+        '<div class="les-sub">'+
+        '<span>'+l.duration+' menit</span>'+
+        '<span>'+l.difficulty+'</span>'+
+        '<span>'+(l.quiz?l.quiz.length:0)+' soal quiz</span>'+
+        '</div></div>';
+      content.append(row);
+    });
+  }
+  renderShell(content,{title:cat.name,subtitle:lessons.length+' lesson'});
+}
+
+function pageLesson(lessonId){
+  var s=store.get();
+  var lesson=LESSONS.find(function(l){return l.id===lessonId;});
+  if(!lesson){content404();return;}
+
+  if(!s.progress.lessons[lesson.id])s.progress.lessons[lesson.id]={viewedAt:new Date().toISOString(),completed:false,readMinutes:0};
+  else s.progress.lessons[lesson.id].viewedAt=new Date().toISOString();
+  store.save();
+
+  var readerWrap=el('div',{class:'reader-wrap'});
+  var toc=el('aside',{class:'reader-toc'});
+  toc.append(el('div',{class:'toc-lbl'},'Daftar Isi'));
+  lesson.sections.forEach(function(sec,i){
+    var link=el('a',{class:'toc-it',href:'#sec-'+i,onClick:function(e){e.preventDefault();var el=document.getElementById('sec-'+i);if(el)el.scrollIntoView({behavior:'smooth'});}});
+    link.textContent=sec.heading;
+    toc.append(link);
+  });
+  readerWrap.append(toc);
+
+  var main=el('article',{class:'reader-main'});
+  var head=el('div',{class:'reader-head'});
+  var cat=CATEGORIES.find(function(c){return c.id===lesson.category;});
+  head.innerHTML='<div class="reader-kick">'+
+      '<span class="badge">'+esc(cat?cat.name:'')+'</span>'+
+      '<span>'+lesson.duration+' menit</span>'+
+      '<span>·</span>'+
+      '<span>'+lesson.difficulty+'</span>'+
+    '</div>'+
+    '<h1 class="reader-ttl">'+esc(lesson.title)+'</h1>'+
+    '<p class="reader-desc">'+esc(lesson.desc)+'</p>';
+  main.append(head);
+
+  var obj=el('div',{class:'objectives'});
+  obj.innerHTML='<div class="obj-ttl">Tujuan Pembelajaran</div>';
+  var ul=el('ul');
+  lesson.objectives.forEach(function(o){ul.append(el('li',{},o));});
+  obj.append(ul);
+  main.append(obj);
+
+  lesson.sections.forEach(function(sec,i){
+    var secEl=el('section',{class:'lesson-sec',id:'sec-'+i});
+    secEl.innerHTML='<h2>'+esc(sec.heading)+'</h2>'+renderMd(sec.body);
+    main.append(secEl);
+  });
+
+  var footer=el('div',{class:'reader-foot'});
+  var prog=s.progress.lessons[lesson.id]||{};
+  var catLessons=LESSONS.filter(function(l){return l.category===lesson.category;});
+  var idx=catLessons.findIndex(function(l){return l.id===lesson.id;});
+  var prev=idx>0?catLessons[idx-1]:null;
+  var next=idx<catLessons.length-1?catLessons[idx+1]:null;
+
+  if(prev){
+    var p=el('a',{class:'reader-nav',href:'#/lesson/'+prev.id});
+    p.innerHTML='<div class="rn-lbl">← Sebelumnya</div><div class="rn-ttl">'+esc(prev.title)+'</div>';
+    footer.append(p);
+  }
+  if(next){
+    var n=el('a',{class:'reader-nav right',href:'#/lesson/'+next.id});
+    n.innerHTML='<div class="rn-lbl">Selanjutnya →</div><div class="rn-ttl">'+esc(next.title)+'</div>';
+    footer.append(n);
+  }
+  main.append(footer);
+
+  if(!prog.completed){
+    var markBtn=el('button',{class:'btn btn-pri btn-lg',style:{marginTop:'var(--sp-5)',width:'100%'}},'✓ Tandai Selesai');
+    markBtn.addEventListener('click',function(){
+      s.progress.lessons[lesson.id]=s.progress.lessons[lesson.id]||{viewedAt:new Date().toISOString()};
+      s.progress.lessons[lesson.id].completed=true;
+      s.progress.lessons[lesson.id].completedAt=new Date().toISOString();
+      addPoints(20);
+      recordActivity(lesson.duration);
+      checkAchievements();
+      store.save();
+      toast('Lesson selesai! +20 points','ok');
+      handleRoute();
+    });
+    main.append(markBtn);
+  } else {
+    main.append(el('div',{class:'badge badge-ok',style:{marginTop:'var(--sp-5)',display:'inline-block'}},'✓ Sudah Selesai'));
+  }
+
+  if(lesson.quiz&&lesson.quiz.length){main.append(renderQuiz(lesson));}
+
+  readerWrap.append(main);
+  var wrapper=el('div',{},readerWrap);
+
+  var readBar=el('div',{class:'read-prog'},el('div',{class:'read-prog-fill',id:'read-prog-fill'}));
+  document.body.append(readBar);
+  var onScroll=function(){
+    var total=document.documentElement.scrollHeight-window.innerHeight;
+    var scrolled=clamp(window.scrollY/total,0,1);
+    var fill=$('#read-prog-fill');
+    if(fill)fill.style.width=(scrolled*100)+'%';
+    lesson.sections.forEach(function(sec,i){
+      var sEl=document.getElementById('sec-'+i);
+      if(!sEl)return;
+      var rect=sEl.getBoundingClientRect();
+      var tocLinks=$$('.toc-it');
+      if(tocLinks[i]){
+        if(rect.top<150&&rect.bottom>150)tocLinks[i].classList.add('active');
+        else tocLinks[i].classList.remove('active');
+      }
+    });
+  };
+  window.addEventListener('scroll',onScroll,{passive:true});
+  setTimeout(onScroll,50);
+
+  var cleanup=function(){window.removeEventListener('scroll',onScroll);readBar.remove();};
+  window.addEventListener('hashchange',cleanup,{once:true});
+
+  renderShell(wrapper,{title:lesson.title,subtitle:cat?cat.name:''});
+  window.scrollTo(0,0);
+}
+
+function renderQuiz(lesson){
+  var s=store.get();
+  var wrap=el('div',{class:'quiz-wrap',id:'quiz-container'});
+  var history=s.progress.quizzes[lesson.id];
+  var bestScore=history?history.best:null;
+
+  var head=el('div',{class:'quiz-head'});
+  head.innerHTML='<div class="quiz-ttl">Knowledge Check</div>'+
+    '<div class="quiz-sub">'+lesson.quiz.length+' soal'+(bestScore!=null?' · Skor terbaik: '+bestScore+'%':'')+'</div>';
+  wrap.append(head);
+
+  var form=el('form');
+  var userAnswers=[];
+  lesson.quiz.forEach(function(q,qi){
+    var qWrap=el('div',{class:'quiz-q'});
+    qWrap.append(el('div',{class:'quiz-qt'},(qi+1)+'. '+q.question));
+    userAnswers[qi]=null;
+
+    if(q.type==='multiple-choice'){
+      q.options.forEach(function(opt,oi){
+        var label=el('label',{class:'quiz-opt'});
+        var input=el('input',{type:'radio',name:'q'+qi,value:String(oi)});
+        input.addEventListener('change',function(){userAnswers[qi]=oi;});
+        label.append(input,el('span',{class:'quiz-opt-txt'},opt));
+        qWrap.append(label);
+      });
+    } else if(q.type==='true-false'){
+      [['Benar',true],['Salah',false]].forEach(function(arr){
+        var label=el('label',{class:'quiz-opt'});
+        var input=el('input',{type:'radio',name:'q'+qi,value:String(arr[1])});
+        input.addEventListener('change',function(){userAnswers[qi]=arr[1];});
+        label.append(input,el('span',{class:'quiz-opt-txt'},arr[0]));
+        qWrap.append(label);
+      });
+    }
+    form.append(qWrap);
+  });
+
+  var actions=el('div',{class:'quiz-act'});
+  var submitBtn=el('button',{type:'submit',class:'btn btn-pri'},'Periksa Jawaban');
+  actions.append(submitBtn);
+  form.append(actions);
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var correct=0;
+    lesson.quiz.forEach(function(q,qi){
+      var userAns=userAnswers[qi];
+      var qEls=$$('.quiz-q')[qi];
+      var opts=$$('.quiz-opt',qEls);
+      opts.forEach(function(optEl,oi){
+        optEl.classList.add('locked');
+        if(q.type==='multiple-choice'){
+          if(oi===q.correct)optEl.classList.add('correct');
+          else if(userAns===oi&&userAns!==q.correct)optEl.classList.add('wrong');
+        } else if(q.type==='true-false'){
+          var val=oi===0;
+          if(val===q.correct)optEl.classList.add('correct');
+          else if(userAns===val&&userAns!==q.correct)optEl.classList.add('wrong');
+        }
+      });
+      var isCorrect=q.type==='multiple-choice'?userAns===q.correct:userAns===q.correct;
+      if(isCorrect)correct++;
+      var exp=el('div',{class:'quiz-exp'});
+      exp.innerHTML='<strong>'+(isCorrect?'Benar!':'Belum tepat.')+'</strong> '+q.explanation;
+      qEls.append(exp);
+    });
+
+    var pct=Math.round((correct/lesson.quiz.length)*100);
+    actions.innerHTML='';
+    var result=el('div',{class:'quiz-result'});
+    result.innerHTML='<div class="quiz-score">'+pct+'%</div>'+
+      '<div class="quiz-score-lbl">'+correct+' dari '+lesson.quiz.length+' benar</div>';
+    if(pct===100){
+      addPoints(30);recordActivity(5);toast('Quiz sempurna! +30 points','ok');
+    } else if(pct>=60){
+      addPoints(15);recordActivity(3);toast('Quiz selesai! +15 points','ok');
+    } else {
+      recordActivity(2);
+    }
+    var retryBtn=el('button',{class:'btn btn-sec',onClick:function(){handleRoute();}},'Ulangi Quiz');
+    result.append(retryBtn);
+    wrap.append(result);
+
+    var hist=s.progress.quizzes[lesson.id]||{best:0,attempts:[]};
+    hist.attempts.push({score:pct,total:lesson.quiz.length,date:new Date().toISOString()});
+    if(pct>hist.best)hist.best=pct;
+    s.progress.quizzes[lesson.id]=hist;
+    store.save();
+    checkAchievements();
+  });
+
+  wrap.append(form);
+  return wrap;
+}
+
+function content404(){
+  var content=el('div',{class:'content'},
+    el('div',{class:'empty'},
+      el('div',{class:'empty-ttl'},'Halaman tidak ditemukan'),
+      el('a',{class:'btn btn-pri',href:'#/'},'Kembali ke Dashboard')
+    )
+  );
+  renderShell(content,{title:'404'});
+}
+
+function pageFlashcards(){
+  var s=store.get();
+  var content=el('div',{class:'content'});
+  content.append(el('div',{style:{marginBottom:'var(--sp-6)'}},
+    el('h1',{style:{marginBottom:'var(--sp-2)'}},'Flashcards'),
+    el('p',{style:{maxWidth:'560px',fontSize:'var(--fs-md)'}},'Kartu-kartu ini otomatis dibuat dari lesson yang Anda pelajari, plus kartu yang Anda buat sendiri. Sistem SM-2 mengatur jadwal review.')
+  ));
+
+  var allCards=s.flashcards.slice();
+  var importedCount=0;
+  LESSONS.forEach(function(lesson){
+    if(!s.progress.lessons[lesson.id]||!s.progress.lessons[lesson.id].completed)return;
+    if(!lesson.flashcards)return;
+    lesson.flashcards.forEach(function(fc){
+      var exists=allCards.find(function(c){return c.front===fc.front&&c.deckId===lesson.id;});
+      if(!exists){
+        allCards.push({
+          id:uid('card'),deckId:lesson.id,lessonId:lesson.id,
+          front:fc.front,back:fc.back,
+          ease:2.5,interval:0,repetitions:0,
+          nextReview:new Date().toISOString(),
+          lastReview:null,
+          createdAt:new Date().toISOString()
+        });
+        importedCount++;
+      }
+    });
+  });
+  if(importedCount>0){
+    s.flashcards=allCards;store.save();
+    toast(importedCount+' kartu baru ditambahkan','ok');
+  }
+
+  var byDeck={};
+  allCards.forEach(function(c){if(!byDeck[c.deckId])byDeck[c.deckId]=[];byDeck[c.deckId].push(c);});
+
+  var now=new Date();
+  var dueCards=allCards.filter(function(c){return new Date(c.nextReview)<=now;});
+
+  var actions=el('div',{class:'flex gap-3 mb-4 flex-wrap'});
+  var addBtn=el('button',{class:'btn btn-pri'},'＋ Buat Kartu Baru');
+  addBtn.addEventListener('click',function(){createFlashcardModal();});
+  actions.append(addBtn);
+  if(dueCards.length){
+    var studyBtn=el('button',{class:'btn btn-pri'},'Mulai Review ('+dueCards.length+' kartu)');
+    studyBtn.addEventListener('click',function(){startFlashcardSession(dueCards.map(function(c){return c.id;}));});
+    actions.append(studyBtn);
+  }
+  content.append(actions);
+
+  if(!allCards.length){
+    content.append(el('div',{class:'empty'},
+      el('div',{class:'empty-ttl'},'Belum ada kartu'),
+      el('div',{class:'empty-txt'},'Selesaikan lesson untuk mendapatkan kartu otomatis, atau buat kartu sendiri.')
+    ));
+    renderShell(content,{title:'Flashcards'});
+    return;
+  }
+
+  var deckGrid=el('div',{class:'deck-grid'});
+  Object.keys(byDeck).forEach(function(deckId){
+    var cards=byDeck[deckId];
+    var lesson=LESSONS.find(function(l){return l.id===deckId;});
+    var name=lesson?lesson.title:'Kartu Saya';
+    var due=cards.filter(function(c){return new Date(c.nextReview)<=now;}).length;
+    var dc=el('div',{class:'deck-card'});
+    dc.innerHTML='<div class="deck-nm">'+esc(name)+'</div>'+
+      '<div class="deck-cnt">'+cards.length+' kartu'+(due?' · '+due+' jatuh tempo':'')+'</div>';
+    dc.addEventListener('click',function(){startFlashcardSession(cards.map(function(c){return c.id;}));});
+    deckGrid.append(dc);
+  });
+  content.append(deckGrid);
+
+  renderShell(content,{title:'Flashcards',subtitle:allCards.length+' kartu · '+dueCards.length+' jatuh tempo'});
+}
+
+function createFlashcardModal(){
+  var root=$('#modal-root');
+  var bg=el('div',{class:'modal-bg'});
+  var modal=el('div',{class:'modal'});
+  modal.innerHTML='<div class="modal-ttl">Buat Kartu Baru</div>';
+  var body=el('div',{class:'modal-bd'});
+  var frontField=el('div',{class:'field',style:{marginBottom:'var(--sp-3)'}},
+    el('label',{class:'field-lbl'},'Depan (pertanyaan)'),
+    el('textarea',{class:'textarea',id:'fc-front',placeholder:'Contoh: Apa itu retrieval practice?',rows:'3'})
+  );
+  var backField=el('div',{class:'field'},
+    el('label',{class:'field-lbl'},'Belakang (jawaban)'),
+    el('textarea',{class:'textarea',id:'fc-back',placeholder:'Mempraktikkan pengambilan informasi...',rows:'4'})
+  );
+  body.append(frontField,backField);
+  modal.append(body);
+
+  var actions=el('div',{class:'modal-act'});
+  var cancel=el('button',{class:'btn btn-sec'},'Batal');
+  cancel.addEventListener('click',function(){root.innerHTML='';});
+  var create=el('button',{class:'btn btn-pri'},'Buat Kartu');
+  create.addEventListener('click',function(){
+    var front=$('#fc-front').value.trim();
+    var back=$('#fc-back').value.trim();
+    if(!front||!back){toast('Isi depan dan belakang kartu','err');return;}
+    var s=store.get();
+    s.flashcards.push({
+      id:uid('card'),deckId:'custom',
+      front:front,back:back,ease:2.5,interval:0,repetitions:0,
+      nextReview:new Date().toISOString(),
+      lastReview:null,
+      createdAt:new Date().toISOString()
+    });
+    store.save();
+    checkAchievements();
+    root.innerHTML='';
+    toast('Kartu dibuat','ok');
+    handleRoute();
+  });
+  actions.append(cancel,create);
+  modal.append(actions);
+
+  bg.append(modal);root.innerHTML='';root.append(bg);
+}
+
+function startFlashcardSession(cardIds){
+  var s=store.get();
+  var queue=cardIds.slice();
+  var current=null;
+  var flipped=false;
+  var reviewed=0;
+
+  var content=el('div',{class:'content'});
+  var header=el('div',{style:{marginBottom:'var(--sp-4)',textAlign:'center'}});
+  var stage=el('div',{class:'fc-stage'});
+  var stageInner=el('div',{class:'fc-inner'});
+  var front=el('div',{class:'fc-face'});
+  var back=el('div',{class:'fc-face fc-back'});
+  stageInner.append(front,back);
+  stage.append(stageInner);
+  var actionsWrap=el('div',{class:'fc-acts'});
+
+  var update=function(){
+    if(queue.length===0){
+      content.innerHTML='';
+      content.append(el('div',{style:{textAlign:'center',padding:'var(--sp-10) 0'}},
+        el('div',{style:{fontSize:'var(--fs-4xl)',fontWeight:'700',color:'var(--g-primary)'}},'✓'),
+        el('h2',{style:{marginTop:'var(--sp-3)'}},'Sesi selesai!'),
+        el('p',{style:{marginTop:'var(--sp-2)'}},'Anda telah me-review '+reviewed+' kartu.'),
+        el('a',{class:'btn btn-pri',href:'#/flashcards',style:{marginTop:'var(--sp-4)'}},'Kembali')
+      ));
+      return;
+    }
+    current=queue[0];
+    var card=s.flashcards.find(function(c){return c.id===current;});
+    if(!card){queue.shift();update();return;}
+    flipped=false;
+    stage.classList.remove('flipped');
+    front.innerHTML='<div class="fc-lbl">Pertanyaan</div>'+esc(card.front);
+    back.innerHTML='<div class="fc-lbl">Jawaban</div>'+esc(card.back);
+    header.innerHTML='<span class="badge">'+queue.length+' tersisa</span>';
+    actionsWrap.innerHTML='';
+    
+    var flipBtn=el('button',{class:'btn btn-pri'},'Lihat Jawaban');
+    flipBtn.addEventListener('click',function(){stage.classList.add('flipped');flipped=true;renderRating();});
+    actionsWrap.append(flipBtn);
+  };
+
+  var renderRating=function(){
+    actionsWrap.innerHTML='';
+    var ratings=[
+      {label:'Lupa',q:0,pts:0},
+      {label:'Sulit',q:2,pts:2},
+      {label:'Bagus',q:4,pts:5},
+      {label:'Mudah',q:5,pts:10}
+    ];
+    ratings.forEach(function(r){
+      var b=el('button',{class:'btn btn-sec'},r.label);
+      b.addEventListener('click',function(){
+        reviewCard(current,r.q);
+        addPoints(r.pts);
+        reviewed++;
+        queue.shift();
+        store.save();
+        update();
+      });
+      actionsWrap.append(b);
+    });
+  };
+
+  stage.addEventListener('click',function(){
+    if(!flipped){stage.classList.add('flipped');flipped=true;renderRating();}
+  });
+
+  content.append(header,stage,actionsWrap);
+  renderShell(content,{title:'Review Flashcards'});
+  update();
+}
+
+function reviewCard(cardId,quality){
+  var s=store.get();
+  var card=s.flashcards.find(function(c){return c.id===cardId;});
+  if(!card)return;
+  var ef=card.ease||2.5;
+  var reps=card.repetitions||0;
+  var interval=card.interval||0;
+
+  if(quality<3){
+    reps=0;interval=1;
+  } else {
+    if(reps===0)interval=1;
+    else if(reps===1)interval=6;
+    else interval=Math.round(interval*ef);
+    reps++;
+    ef=ef+(0.1-(5-quality)*(0.08+(5-quality)*0.02));
+    if(ef<1.3)ef=1.3;
+  }
+
+  var next=new Date();
+  next.setDate(next.getDate()+interval);
+
+  card.ease=ef;
+  card.repetitions=reps;
+  card.interval=interval;
+  card.nextReview=next.toISOString();
+  card.lastReview=new Date().toISOString();
+  store.save();
+}
+
+function pageNotes(){
+  var s=store.get();
+  var content=el('div',{class:'content'});
+  content.append(el('div',{style:{marginBottom:'var(--sp-5)'}},
+    el('h1',{style:{marginBottom:'var(--sp-2)'}},'Catatan'),
+    el('p',{style:{maxWidth:'560px'}},'Kelola catatan belajar Anda. Editor mendukung Markdown sederhana.')
+  ));
+
+  var actions=el('div',{style:{marginBottom:'var(--sp-4)'}});
+  var newBtn=el('button',{class:'btn btn-pri'},'＋ Catatan Baru');
+  newBtn.addEventListener('click',function(){
+    var s=store.get();
+    s.notes.unshift({
+      id:uid('note'),
+      title:'Catatan Baru',
+      content:'',
+      createdAt:new Date().toISOString(),
+      updatedAt:new Date().toISOString()
+    });
+    store.save();
+    checkAchievements();
+    handleRoute();
+  });
+  actions.append(newBtn);
+  content.append(actions);
+
+  if(!s.notes.length){
+    content.append(el('div',{class:'empty'},
+      el('div',{class:'empty-ttl'},'Belum ada catatan'),
+      el('div',{class:'empty-txt'},'Mulai dengan membuat catatan baru.')
+    ));
+    renderShell(content,{title:'Catatan'});
+    return;
+  }
+
+  var hash=location.hash;
+  var noteId=hash.split('/')[2];
+  var activeNote=s.notes.find(function(n){return n.id===noteId;})||s.notes[0];
+  var layout=el('div',{class:'notes-layout'});
+  var list=el('div',{class:'notes-list'});
+  s.notes.forEach(function(n){
+    var it=el('div',{class:'note-it'+(n.id===activeNote.id?' active':'')});
+    it.innerHTML='<div class="note-it-t">'+esc(n.title||'Tanpa Judul')+'</div>'+
+      '<div class="note-it-d">'+fmtDate(n.updatedAt)+'</div>';
+    it.addEventListener('click',function(){navigate('/notes/'+n.id);});
+    list.append(it);
+  });
+
+  var editor=el('div',{class:'note-editor'});
+  var titleInput=el('input',{class:'input',value:activeNote.title,placeholder:'Judul catatan',style:{marginBottom:'var(--sp-3)',fontSize:'var(--fs-lg)',fontWeight:'600'}});
+  var textarea=el('textarea',{class:'textarea',placeholder:'Tulis dalam format Markdown...\n\n# Heading\n**bold** *italic*\n- list item\n`code`',style:{flex:'1',minHeight:'300px',fontFamily:'var(--font-mono)'}});
+  textarea.value=activeNote.content;
+  var preview=el('div',{class:'note-preview',style:{marginTop:'var(--sp-4)',padding:'var(--sp-4)',background:'var(--bg-alt)',borderRadius:'var(--r-md)',minHeight:'100px'}});
+  preview.innerHTML=renderMd(activeNote.content)||'<em class="muted">Preview akan muncul di sini...</em>';
+
+  var saveNote=debounce(function(){
+    var st=store.get();
+    var n=st.notes.find(function(x){return x.id===activeNote.id;});
+    if(n){n.title=titleInput.value;n.content=textarea.value;n.updatedAt=new Date().toISOString();store.save();}
+  },500);
+
+  titleInput.addEventListener('input',saveNote);
+  textarea.addEventListener('input',function(){saveNote();preview.innerHTML=renderMd(textarea.value)||'<em class="muted">Preview...</em>';});
+
+  var btnRow=el('div',{style:{marginTop:'var(--sp-3)',display:'flex',gap:'var(--sp-2)'}});
+  var delBtn=el('button',{class:'btn btn-ghost btn-sm'},'Hapus Catatan');
+  delBtn.addEventListener('click',function(){
+    confirmModal({
+      title:'Hapus catatan?',body:'Catatan ini akan dihapus permanen.',confirmLabel:'Hapus',
+      onConfirm:function(){
+        var st=store.get();
+        st.notes=st.notes.filter(function(n){return n.id!==activeNote.id;});
+        store.save();
+        toast('Catatan dihapus');
+        navigate('/notes');
+      }
+    });
+  });
+  btnRow.append(delBtn);
+
+  editor.append(titleInput,textarea,preview,btnRow);
+  layout.append(list,editor);
+  content.append(layout);
+  renderShell(content,{title:'Catatan'});
+}
+
+function pagePlanner(){
+  var s=store.get();
+  var content=el('div',{class:'content'});
+  content.append(el('div',{style:{marginBottom:'var(--sp-5)'}},
+    el('h1',{style:{marginBottom:'var(--sp-2)'}},'Planner'),
+    el('p',{style:{maxWidth:'560px'}},'Rencanakan sesi belajar dan tugas Anda.')
+  ));
+
+  var form=el('div',{class:'card',style:{marginBottom:'var(--sp-5)'}});
+  form.append(el('h3',{class:'card-ttl',style:{marginBottom:'var(--sp-3)'}},'Tambah Tugas'));
+  var input=el('input',{class:'input',placeholder:'Apa yang ingin Anda pelajari atau selesaikan?',style:{marginBottom:'var(--sp-3)'}});
+  var dateInput=el('input',{class:'input',type:'date',style:{marginBottom:'var(--sp-3)'}});
+  var prioritySelect=el('select',{class:'select',style:{marginBottom:'var(--sp-3)'}},
+    el('option',{value:'high'},'Prioritas Tinggi'),
+    el('option',{value:'medium',selected:'selected'},'Prioritas Sedang'),
+    el('option',{value:'low'},'Prioritas Rendah')
+  );
+  var submitBtn=el('button',{class:'btn btn-pri'},'Tambah Tugas');
+  submitBtn.addEventListener('click',function(){
+    var title=input.value.trim();
+    if(!title){toast('Judul tugas tidak boleh kosong','err');return;}
+    var st=store.get();
+    st.tasks.push({
+      id:uid('task'),title:title,
+      dueDate:dateInput.value||null,
+      priority:prioritySelect.value,
+      completed:false,
+      createdAt:new Date().toISOString()
+    });
+    store.save();
+    input.value='';dateInput.value='';
+    toast('Tugas ditambahkan','ok');
+    handleRoute();
+  });
+  form.append(input,dateInput,prioritySelect,submitBtn);
+  content.append(form);
+
+  var tasks=s.tasks.slice().sort(function(a,b){
+    if(a.completed!==b.completed)return a.completed?1:-1;
+    var pOrder={high:0,medium:1,low:2};
+    if(pOrder[a.priority]!==pOrder[b.priority])return pOrder[a.priority]-pOrder[b.priority];
+    if(a.dueDate&&b.dueDate)return a.dueDate.localeCompare(b.dueDate);
+    return 0;
+  });
+
+  if(!tasks.length){
+    content.append(el('div',{class:'empty'},
+      el('div',{class:'empty-ttl'},'Belum ada tugas'),
+      el('div',{class:'empty-txt'},'Tambahkan tugas untuk mulai merencanakan.')
+    ));
+  } else {
+    tasks.forEach(function(t){
+      var row=el('div',{class:'task-row'+(t.completed?' done':'')});
+      var cb=el('button',{class:'task-cb','aria-label':'Toggle task'});
+      cb.innerHTML=I.check;
+      cb.addEventListener('click',function(){
+        var st=store.get();
+        var task=st.tasks.find(function(x){return x.id===t.id;});
+        if(task){task.completed=!task.completed;store.save();handleRoute();}
+      });
+      var bd=el('div',{class:'task-bd'});
+      bd.innerHTML='<div class="task-ttl">'+esc(t.title)+'</div>'+
+        '<div class="task-meta">'+
+        '<span>'+(t.priority==='high'?'🔴':t.priority==='medium'?'🟡':'🟢')+' '+t.priority+'</span>'+
+        (t.dueDate?'<span>📅 '+fmtDate(t.dueDate)+'</span>':'')+
+        '</div>';
+      var delBtn=el('button',{class:'btn btn-ghost btn-sm','aria-label':'Hapus'});
+      delBtn.innerHTML=I.trash;
+      delBtn.addEventListener('click',function(){
+        confirmModal({
+          title:'Hapus tugas?',body:'Tugas akan dihapus permanen.',confirmLabel:'Hapus',
+          onConfirm:function(){
+            var st=store.get();
+            st.tasks=st.tasks.filter(function(x){return x.id!==t.id;});
+            store.save();handleRoute();
+          }
+        });
+      });
+      row.append(cb,bd,delBtn);
+      content.append(row);
+    });
+  }
+
+  renderShell(content,{title:'Planner',subtitle:tasks.filter(function(t){return !t.completed;}).length+' tugas aktif'});
+}
+
+var focusState={mode:'pomodoro',running:false,seconds:25*60,initial:25*60,interval:null};
+
+function pageFocus(){
+  var content=el('div',{class:'content'});
+  content.append(el('div',{style:{marginBottom:'var(--sp-5)',textAlign:'center'}},
+    el('h1',{style:{marginBottom:'var(--sp-2)'}},'Focus Mode'),
+    el('p',{style:{maxWidth:'560px',margin:'0 auto'}},'Timer Pomodoro untuk sesi belajar bebas distraksi.')
+  ));
+
+  var stage=el('div',{class:'focus-stage'});
+  var modes=el('div',{class:'focus-modes'});
+  var modeData=[{id:'pomodoro',label:'Pomodoro (25m)',secs:25*60},{id:'short',label:'Short Break (5m)',secs:5*60},{id:'long',label:'Long Break (15m)',secs:15*60}];
+  modeData.forEach(function(m){
+    var b=el('button',{class:'focus-mode'+(focusState.mode===m.id?' active':'')},m.label);
+    b.addEventListener('click',function(){
+      if(focusState.running){toast('Hentikan timer dulu','err');return;}
+      focusState.mode=m.id;
+      focusState.initial=m.secs;
+      focusState.seconds=m.secs;
+      handleRoute();
+    });
+    modes.append(b);
+  });
+  stage.append(el('div',{class:'focus-lbl'},'Mode'),modes);
+
+  var display=el('div',{class:'focus-time'});
+  var updateDisplay=function(){
+    var m=Math.floor(focusState.seconds/60);
+    var s=focusState.seconds%60;
+    display.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+  };
+  updateDisplay();
+  stage.append(display);
+
+  var controls=el('div',{style:{display:'flex',gap:'var(--sp-3)',justifyContent:'center',marginTop:'var(--sp-3)'}});
+  var startBtn=el('button',{class:'btn btn-pri btn-lg'});
+  var resetBtn=el('button',{class:'btn btn-sec'});
+  resetBtn.innerHTML=I.reset+' Reset';
+  resetBtn.addEventListener('click',function(){
+    if(focusState.interval){clearInterval(focusState.interval);focusState.interval=null;}
+    focusState.running=false;
+    focusState.seconds=focusState.initial;
+    updateDisplay();updateStartBtn();
+  });
+
+  var updateStartBtn=function(){
+    startBtn.innerHTML=focusState.running?I.pause+' Pause':I.play+' Mulai';
+  };
+  startBtn.addEventListener('click',function(){
+    if(focusState.running){
+      clearInterval(focusState.interval);focusState.interval=null;
+      focusState.running=false;
+    } else {
+      focusState.running=true;
+      focusState.interval=setInterval(function(){
+        focusState.seconds--;
+        updateDisplay();
+        if(focusState.seconds<=0){
+          clearInterval(focusState.interval);focusState.interval=null;
+          focusState.running=false;
+          updateStartBtn();
+          onFocusComplete();
+        }
+      },1000);
+    }
+    updateStartBtn();
+  });
+  updateStartBtn();
+
+  controls.append(startBtn,resetBtn);
+  stage.append(controls);
+
+  var s=store.get();
+  if(s.progress.focusSessions.length){
+    var hist=el('div',{style:{maxWidth:'520px',margin:'var(--sp-6) auto 0'}});
+    hist.append(el('h3',{style:{marginBottom:'var(--sp-3)',fontSize:'var(--fs-md)'}},'Riwayat Sesi'));
+    var recent=s.progress.focusSessions.slice(-5).reverse();
+    recent.forEach(function(f){
+      hist.append(el('div',{class:'task-row'},
+        el('div',{class:'task-bd'},
+          el('div',{class:'task-ttl'},Math.round(f.duration/60)+' menit fokus'),
+          el('div',{class:'task-meta'},fmtDate(f.date))
+        )
+      ));
+    });
+    stage.append(hist);
+  }
+
+  content.append(stage);
+  renderShell(content,{title:'Focus Mode',subtitle:'Bebas distraksi'});
+
+  function onFocusComplete(){
+    var st=store.get();
+    st.progress.focusSessions.push({duration:focusState.initial,date:new Date().toISOString()});
+    addPoints(20);
+    recordActivity(Math.round(focusState.initial/60));
+    checkAchievements();
+    store.save();
+    toast('Sesi fokus selesai! +20 points','ok');
+    if('Notification' in window&&Notification.permission==='granted'){
+      new Notification('Sesi Fokus Selesai',{body:'Waktunya istirahat sejenak.'});
+    }
+  }
+}
+
+function pageAnalytics(){
+  var s=store.get();
+  var stats=computeStats();
+  var content=el('div',{class:'content'});
+  content.append(el('div',{style:{marginBottom:'var(--sp-5)'}},
+    el('h1',{style:{marginBottom:'var(--sp-2)'}},'Analytics'),
+    el('p',{style:{maxWidth:'560px'}},'Statistik berdasarkan aktivitas belajar Anda yang sebenarnya.')
+  ));
+
+  var summary=el('div',{class:'grid grid-4',style:{marginBottom:'var(--sp-5)'}});
+  var sumData=[
+    {lbl:'Streak',val:stats.streak,sub:'Terpanjang: '+stats.longestStreak},
+    {lbl:'Total Belajar',val:stats.totalHours+'j',sub:stats.totalMinutes+' menit'},
+    {lbl:'Lesson',val:stats.completedLessons+'/'+LESSONS.length,sub:Math.round((stats.completedLessons/LESSONS.length)*100)+'% selesai'},
+    {lbl:'Quiz',val:stats.quizzesTaken,sub:stats.avgScore!==null?'Rata-rata: '+stats.avgScore+'%':'Belum ada'}
+  ];
+  sumData.forEach(function(d){
+    summary.append(el('div',{class:'stat'},
+      el('div',{class:'stat-lbl'},d.lbl),
+      el('div',{class:'stat-val'},String(d.val)),
+      el('div',{class:'stat-meta'},d.sub)
+    ));
+  });
+  content.append(summary);
+
+  content.append(el('div',{class:'chart-card'},
+    el('div',{class:'chart-ttl'},'Aktivitas 7 Hari Terakhir'),
+    (function(){
+      var week=weeklyActivity();
+      var max=Math.max.apply(null, week.map(function(d){return d.minutes;}).concat([1]));
+      var wrap=el('div',{class:'chart-wrap'});
+      var barsHTML = week.map(function(d,i){
+        var x=40+i*95;
+        var h=(d.minutes/max)*150;
+        var y=180-h;
+        return '<rect class="chart-bar" x="'+x+'" y="'+y+'" width="60" height="'+h+'" rx="4" opacity="0.9"/>'+
+          '<text class="chart-axis" x="'+(x+30)+'" y="195" text-anchor="middle">'+d.label+'</text>'+
+          '<text class="chart-axis" x="'+(x+30)+'" y="'+(y-6)+'" text-anchor="middle">'+d.minutes+'m</text>';
+      }).join('');
+      wrap.innerHTML='<svg viewBox="0 0 700 200">'+barsHTML+'</svg>';
+      return wrap;
+    })()
+  ));
+
+  content.append(el('div',{class:'chart-card'},
+    el('div',{class:'chart-ttl'},'Distribusi Kategori'),
+    (function(){
+      var catCount={};
+      Object.keys(s.progress.lessons).forEach(function(lessonId){
+        if(!s.progress.lessons[lessonId].completed)return;
+        var l=LESSONS.find(function(x){return x.id===lessonId;});
+        if(l)catCount[l.category]=(catCount[l.category]||0)+1;
+      });
+      var entries=Object.keys(catCount).map(function(k){return [k,catCount[k]];});
+      if(!entries.length){
+        return el('div',{class:'muted sm'},'Belum ada lesson yang selesai.');
+      }
+      var wrap=el('div',{style:{display:'flex',flexDirection:'column',gap:'var(--sp-3)'}});
+      var max=Math.max.apply(null, entries.map(function(e){return e[1];}).concat([1]));
+      entries.forEach(function(arr){
+        var cat=CATEGORIES.find(function(c){return c.id===arr[0];});
+        var row=el('div');
+        row.innerHTML='<div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:var(--fs-sm)">'+
+          '<span>'+esc(cat?cat.name:arr[0])+'</span>'+
+          '<span class="muted">'+arr[1]+'</span>'+
+          '</div>'+
+          '<div class="prog prog-sm"><div class="prog-bar" style="width:'+((arr[1]/max)*100)+'%"></div></div>';
+        wrap.append(row);
+      });
+      return wrap;
+    })()
+  ));
+
+  renderShell(content,{title:'Analytics'});
+}
+
+function pageAchievements(){
+  var s=store.get();
+  var unlocked={};
+  s.achievements.forEach(function(a){unlocked[a]=true;});
+  var count=Object.keys(unlocked).length;
+  
+  var content=el('div',{class:'content'});
+  content.append(el('div',{style:{marginBottom:'var(--sp-5)'}},
+    el('h1',{style:{marginBottom:'var(--sp-2)'}},'Achievements'),
+    el('p',{style:{maxWidth:'560px'}},count+' dari '+ACHIEVEMENTS.length+' achievement terbuka.')
+  ));
+
+  var grid=el('div',{class:'ach-grid'});
+  ACHIEVEMENTS.forEach(function(a){
+    var isUnlocked=unlocked[a.id];
+    var card=el('div',{class:'ach-card'+(isUnlocked?' unlocked':'')});
+    card.innerHTML='<div class="ach-ic">'+(I[a.icon]||I.trophy)+'</div>'+
+      '<div class="ach-ttl">'+esc(a.title)+'</div>'+
+      '<div class="ach-desc">'+esc(a.desc)+'</div>';
+    grid.append(card);
+  });
+  content.append(grid);
+  renderShell(content,{title:'Achievements',subtitle:count+'/'+ACHIEVEMENTS.length+' terbuka'});
+}
+
+function pageSkills(){
+  var s=store.get();
+  var content=el('div',{class:'content'});
+  content.append(el('div',{style:{marginBottom:'var(--sp-5)'}},
+    el('h1',{style:{marginBottom:'var(--sp-2)'}},'Skill Tree'),
+    el('p',{style:{maxWidth:'560px'}},'Perkembangan kemampuan Anda berdasarkan lesson yang telah diselesaikan.')
+  ));
+
+  CATEGORIES.forEach(function(cat){
+    var lessons=LESSONS.filter(function(l){return l.category===cat.id;});
+    if(!lessons.length)return;
+    var completed=lessons.filter(function(l){return s.progress.lessons[l.id]&&s.progress.lessons[l.id].completed;}).length;
+    var pct=Math.round((completed/lessons.length)*100);
+    var grp=el('div',{class:'skill-grp'});
+    grp.append(el('div',{class:'skill-grp-ttl'},
+      el('span',{},cat.name),
+      el('span',{class:'badge',style:{marginLeft:'auto'}},'Level '+(Math.floor(pct/25)+1))
+    ));
+    var row=el('div',{class:'skill-it'});
+    row.innerHTML='<div class="skill-lvl">'+pct+'%</div>'+
+      '<div class="skill-nm">'+esc(cat.name)+'</div>'+
+      '<div class="prog" style="width:200px"><div class="prog-bar" style="width:'+pct+'%"></div></div>';
+    grp.append(row);
+    content.append(grp);
+  });
+
+  renderShell(content,{title:'Skill Tree'});
+}
+
+function pageSearch(){
+  var s=store.get();
+  var content=el('div',{class:'content'});
+  content.append(el('h1',{style:{marginBottom:'var(--sp-4)'}},'Cari'));
+
+  var box=el('div',{class:'search-box'});
+  box.innerHTML=I.search;
+  var input=el('input',{class:'input',type:'search',placeholder:'Cari lesson, catatan, kartu, tugas...',id:'search-input'});
+  box.append(input);
+  content.append(box);
+
+  var results=el('div',{id:'search-results'});
+  content.append(results);
+
+  var performSearch=function(q){
+    results.innerHTML='';
+    if(!q.trim()){results.innerHTML='<div class="muted sm" style="padding:var(--sp-4)">Mulai mengetik untuk mencari.</div>';return;}
+    var ql=q.toLowerCase();
+    var count=0;
+
+    LESSONS.forEach(function(l){
+      if(l.title.toLowerCase().indexOf(ql)>-1||l.desc.toLowerCase().indexOf(ql)>-1){
+        var r=el('div',{class:'search-res'});
+        r.innerHTML='<div class="search-res-t"><span class="search-res-type">Lesson</span>'+esc(l.title)+'</div><div class="search-res-m">'+esc(l.desc.substring(0,100))+'...</div>';
+        r.addEventListener('click',function(){navigate('/lesson/'+l.id);});
+        results.append(r);count++;
+      }
+    });
+
+    s.notes.forEach(function(n){
+      if(n.title.toLowerCase().indexOf(ql)>-1||(n.content||'').toLowerCase().indexOf(ql)>-1){
+        var r=el('div',{class:'search-res'});
+        r.innerHTML='<div class="search-res-t"><span class="search-res-type">Note</span>'+esc(n.title)+'</div><div class="search-res-m">'+esc((n.content||'').substring(0,100))+'...</div>';
+        r.addEventListener('click',function(){navigate('/notes/'+n.id);});
+        results.append(r);count++;
+      }
+    });
+
+    s.flashcards.forEach(function(c){
+      if((c.front||'').toLowerCase().indexOf(ql)>-1||(c.back||'').toLowerCase().indexOf(ql)>-1){
+        var r=el('div',{class:'search-res'});
+        r.innerHTML='<div class="search-res-t"><span class="search-res-type">Kartu</span>'+esc(c.front)+'</div><div class="search-res-m">'+esc(c.back.substring(0,100))+'</div>';
+        r.addEventListener('click',function(){navigate('/flashcards');});
+        results.append(r);count++;
+      }
+    });
+
+    s.tasks.forEach(function(t){
+      if(t.title.toLowerCase().indexOf(ql)>-1){
+        var r=el('div',{class:'search-res'});
+        r.innerHTML='<div class="search-res-t"><span class="search-res-type">Tugas</span>'+esc(t.title)+'</div><div class="search-res-m">'+(t.completed?'Selesai':'Aktif')+'</div>';
+        r.addEventListener('click',function(){navigate('/planner');});
+        results.append(r);count++;
+      }
+    });
+
+    if(count===0){
+      results.innerHTML='<div class="empty"><div class="empty-ttl">Tidak ada hasil</div><div class="empty-txt">Tidak ditemukan untuk "'+esc(q)+'".</div></div>';
+    }
+  };
+
+  input.addEventListener('input',debounce(function(){performSearch(input.value);},200));
+  setTimeout(function(){input.focus();},50);
+
+  renderShell(content,{title:'Cari'});
+}
+
+function pageSettings(){
+  var s=store.get();
+  var content=el('div',{class:'content',style:{maxWidth:'720px'}});
+  content.append(el('h1',{style:{marginBottom:'var(--sp-5)'}},'Pengaturan'));
+
+  var profileCard=el('div',{class:'card',style:{marginBottom:'var(--sp-4)'}});
+  profileCard.append(el('h3',{class:'card-ttl',style:{marginBottom:'var(--sp-3)'}},'Profil'));
+  var nameInput=el('input',{class:'input',value:s.profile.name,placeholder:'Nama'});
+  nameInput.addEventListener('input',debounce(function(){
+    var st=store.get();st.profile.name=nameInput.value||'Pelajar';store.save();
+  },400));
+  profileCard.append(
+    el('div',{class:'field'},
+      el('label',{class:'field-lbl'},'Nama'),
+      nameInput
+    )
+  );
+  content.append(profileCard);
+
+  var goalsCard=el('div',{class:'card',style:{marginBottom:'var(--sp-4)'}});
+  goalsCard.append(el('h3',{class:'card-ttl',style:{marginBottom:'var(--sp-3)'}},'Target Harian'));
+  var goalInput=el('input',{class:'input',type:'number',value:s.profile.goals.dailyMinutes,min:'1',max:'600'});
+  goalInput.addEventListener('input',debounce(function(){
+    var v=parseInt(goalInput.value);
+    if(v>0){var st=store.get();st.profile.goals.dailyMinutes=v;store.save();}
+  },400));
+  goalsCard.append(
+    el('div',{class:'field'},
+      el('label',{class:'field-lbl'},'Menit per hari'),
+      goalInput,
+      el('div',{class:'field-hint'},'Target belajar harian Anda.')
+    )
+  );
+  content.append(goalsCard);
+
+  var dataCard=el('div',{class:'card',style:{marginBottom:'var(--sp-4)'}});
+  dataCard.append(el('h3',{class:'card-ttl',style:{marginBottom:'var(--sp-3)'}},'Data'));
+
+  var exportBtn=el('button',{class:'btn btn-sec',style:{marginRight:'var(--sp-2)',marginBottom:'var(--sp-2)'}},'⬇ Export Data');
+  exportBtn.addEventListener('click',function(){
+    var data=store.export();
+    var blob=new Blob([data],{type:'application/json'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;a.download='selflearn-backup-'+today()+'.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    toast('Data berhasil diexport','ok');
+  });
+
+  var importLabel=el('label',{class:'btn btn-sec',style:{cursor:'pointer',marginBottom:'var(--sp-2)'}},'⬆ Import Data');
+  var importInput=el('input',{type:'file',accept:'.json',style:{display:'none'}});
+  importInput.addEventListener('change',function(e){
+    var file=e.target.files[0];
+    if(!file)return;
+    var reader=new FileReader();
+    reader.onload=function(){
+      try{
+        store.import(reader.result);
+        toast('Data berhasil diimport','ok');
+        handleRoute();
+      }catch(err){toast('Import gagal: '+err.message,'err');}
+    };
+    reader.readAsText(file);
+  });
+  importLabel.append(importInput);
+
+  var resetBtn=el('button',{class:'btn btn-sec'},'🗑 Reset Semua Data');
+  resetBtn.addEventListener('click',function(){
+    confirmModal({
+      title:'Reset semua data?',
+      body:'Semua progress, catatan, kartu, dan data akan dihapus permanen. Tindakan ini tidak bisa dibatalkan.',
+      confirmLabel:'Ya, Reset',
+      onConfirm:function(){
+        store.reset();
+        toast('Data direset');
+        navigate('/');handleRoute();
+      }
+    });
+  });
+
+  dataCard.append(exportBtn,importLabel,el('br'),resetBtn);
+  content.append(dataCard);
+
+  var storageCard=el('div',{class:'card'});
+  storageCard.append(el('h3',{class:'card-ttl',style:{marginBottom:'var(--sp-3)'}},'Info Penyimpanan'));
+  try{
+    var raw=localStorage.getItem(STORE_KEY)||'';
+    var size=(raw.length/1024).toFixed(1);
+    storageCard.append(el('div',{class:'sm muted'},'Ukuran data: '+size+' KB'));
+  }catch(e){}
+  storageCard.append(el('div',{class:'sm muted'},'Versi skema: '+s.version));
+  content.append(storageCard);
+
+  renderShell(content,{title:'Pengaturan'});
+}
+
+function computeStats(){
+  var s=store.get();
+  var lessons=Object.keys(s.progress.lessons).map(function(k){return s.progress.lessons[k];});
+  var completedLessons=lessons.filter(function(l){return l.completed;}).length;
+  var totalMinutes=0;
+  Object.keys(s.progress.dailyMinutes).forEach(function(k){totalMinutes+=s.progress.dailyMinutes[k];});
+  
+  var totalHours=(totalMinutes/60).toFixed(1);
+  var quizzesTaken=Object.keys(s.progress.quizzes).length;
+  var quizScores=[];
+  Object.keys(s.progress.quizzes).forEach(function(k){
+    var q=s.progress.quizzes[k];
+    if(q.attempts)q.attempts.forEach(function(a){quizScores.push(a);});
+  });
+  var avgScore=quizScores.length?Math.round(quizScores.reduce(function(a,b){return a+(b.score/b.total)*100;},0)/quizScores.length):null;
+  
+  return{
+    completedLessons:completedLessons,totalMinutes:totalMinutes,totalHours:totalHours,
+    quizzesTaken:quizzesTaken,avgScore:avgScore,streak:s.progress.streak.current,
+    longestStreak:s.progress.streak.longest,level:s.progress.level,points:s.progress.points
+  };
+}
+
+function weeklyActivity(){
+  var s=store.get();
+  var days=[];
+  for(var i=6;i>=0;i--){
+    var d=new Date();d.setDate(d.getDate()-i);
+    var iso=d.toISOString().slice(0,10);
+    days.push({iso:iso,minutes:s.progress.dailyMinutes[iso]||0,label:['Min','Sen','Sel','Rab','Kam','Jum','Sab'][d.getDay()]});
+  }
+  return days;
+}
+
+register('/',pageDashboard);
+register('/library',pageLibrary);
+register('/flashcards',pageFlashcards);
+register('/notes',pageNotes);
+register('/planner',pagePlanner);
+register('/focus',pageFocus);
+register('/analytics',pageAnalytics);
+register('/achievements',pageAchievements);
+register('/skills',pageSkills);
+register('/search',pageSearch);
+register('/settings',pageSettings);
+register('*',content404);
+
+store.load();
+checkAchievements();
+handleRoute();
+
+window.addEventListener('hashchange',function(){
+  var p=currentPath();
+  if(p.indexOf('/category/')===0)pageCategory(p.split('/')[2]);
+  else if(p.indexOf('/lesson/')===0)pageLesson(p.split('/')[2]);
+  else if(p.indexOf('/notes')===0)pageNotes();
+});
+
+window.addEventListener('hashchange',function(){
+  var bar=$('.read-prog');if(bar)bar.remove();
+});
+
+})();
+</script>
+</body>
+</html>
